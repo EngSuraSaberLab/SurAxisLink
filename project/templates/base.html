@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}Index - Orbit Bootstrap Template{% endblock %}</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Orbit
+  * Template URL: https://bootstrapmade.com/orbit-bootstrap-template/
+  * Updated: Jan 13 2026 with Bootstrap v5.3.8
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="{% block body_class %}index-page{% endblock %}">
+
+  <div class="site-backdrop" aria-hidden="true">
+    <div class="site-backdrop__gradient"></div>
+    <div class="site-backdrop__particles" id="site-particles"></div>
+    <div class="site-backdrop__shapes">
+      <div class="site-backdrop__shape shape-1"><span class="site-backdrop__code">{ }</span></div>
+      <div class="site-backdrop__shape shape-2"><span class="site-backdrop__code">&lt;/&gt;</span></div>
+      <div class="site-backdrop__shape shape-3"><span class="site-backdrop__code">[ ]</span></div>
+      <div class="site-backdrop__shape shape-4"><span class="site-backdrop__code">( )</span></div>
+      <div class="site-backdrop__shape shape-5"><span class="site-backdrop__code">=&gt;</span></div>
+      <div class="site-backdrop__shape shape-6"><span class="site-backdrop__code">01</span></div>
+      <div class="site-backdrop__shape shape-7"><span class="site-backdrop__code">API</span></div>
+      <div class="site-backdrop__shape shape-8"><span class="site-backdrop__code">SQL</span></div>
+      <div class="site-backdrop__shape shape-9"><span class="site-backdrop__code">git</span></div>
+      <div class="site-backdrop__shape shape-10"><span class="site-backdrop__code">JSON</span></div>
+      <div class="site-backdrop__shape shape-11"><span class="site-backdrop__code">UI</span></div>
+      <div class="site-backdrop__shape shape-12"><span class="site-backdrop__code">CLI</span></div>
+    </div>
+  </div>
+
+  <div class="site-shell">
+    {% include 'partials/header.html' %}
+
+    <main class="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include 'partials/footer.html' %}
+  </div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader" aria-live="polite" aria-label="Page loading">
+    <div class="preloader__glow preloader__glow--one" aria-hidden="true"></div>
+    <div class="preloader__glow preloader__glow--two" aria-hidden="true"></div>
+    <div class="preloader__panel">
+      <div class="preloader__brand" aria-hidden="true">
+        <span class="preloader__logo-icon">
+          <span class="preloader__planet"></span>
+          <span class="preloader__orbit preloader__orbit--one"></span>
+          <span class="preloader__orbit preloader__orbit--two"></span>
+        </span>
+        <span class="preloader__brand-copy">
+          <span class="preloader__brand-name">SurAxis</span>
+          <span class="preloader__brand-tag">Tailored digital solutions</span>
+        </span>
+      </div>
+
+      <div class="preloader__status">
+        <span class="preloader__label">Preparing your experience</span>
+        <span class="preloader__percent" data-preloader-percent>0%</span>
+      </div>
+
+      <div class="preloader__track" aria-hidden="true">
+        <span class="preloader__bar" data-preloader-bar></span>
+      </div>
+
+      <p class="preloader__hint" data-preloader-hint>Loading services, visuals, and interface assets...</p>
+    </div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

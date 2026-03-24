@@ -1,0 +1,67 @@
+﻿{% load static %}
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="container position-relative d-flex align-items-center justify-content-between">
+
+    <a href="/" class="logo d-flex align-items-center me-auto me-xl-0" aria-label="SurAxisTech home">
+      <span class="suraxis-logo" aria-hidden="true">
+        <span class="logo-icon">
+          <span class="planet"></span>
+          <span class="orbit orbit-1"></span>
+          <span class="orbit orbit-2"></span>
+        </span>
+        <span class="logo-text">SurAxis</span>
+      </span>
+    </a>
+
+    <nav id="navmenu" class="navmenu">
+      <button
+        class="nav-toggle-grid d-xl-none collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#primary-nav"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="nav-toggle-grid__dots" aria-hidden="true">
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+          <span class="nav-toggle-grid__dot"></span>
+        </span>
+      </button>
+
+      <div id="primary-nav" class="navmenu-collapse collapse">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#who">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <button
+      class="lang-toggle"
+      type="button"
+      data-lang-state="ar"
+      aria-pressed="false"
+      aria-label="Language switch (coming soon)"
+      title="Language switch (coming soon)">
+      <span class="lang-toggle__label lang-toggle__label--ar">AR</span>
+      <span class="lang-toggle__label lang-toggle__label--en">EN</span>
+      <span class="lang-toggle__thumb">
+        <span class="lang-toggle__flag lang-toggle__flag--iq" aria-hidden="true"></span>
+      </span>
+    </button>
+
+    <a class="btn-getstarted" href="#contact">Start Your Project</a>
+
+  </div>
+</header>
+
