@@ -181,6 +181,10 @@
     } else {
       window.addEventListener('load', finishPreloader, { once: true });
     }
+
+    // Safety timeout: prevent long blocking on slow mobile networks.
+    const isMobileViewport = window.matchMedia('(max-width: 767.98px)').matches;
+    window.setTimeout(finishPreloader, isMobileViewport ? 2200 : 6000);
   }
 
   /**
@@ -531,9 +535,48 @@
     const errorMessage = inquiryForm.querySelector('.error-message');
     const loadingMessage = inquiryForm.querySelector('.loading');
     let currentStep = 1;
+    let recaptchaLoadingPromise = null;
+    let recaptchaReady = typeof window.grecaptcha !== 'undefined' && typeof window.grecaptcha.getResponse === 'function';
     const recaptchaWidget = recaptchaContainer ? recaptchaContainer.querySelector('.g-recaptcha') : null;
     const recaptchaSiteKey = recaptchaWidget ? (recaptchaWidget.getAttribute('data-sitekey') || '').trim() : '';
     const recaptchaConfigured = Boolean(recaptchaWidget && recaptchaSiteKey && !/^YOUR_/i.test(recaptchaSiteKey));
+
+    function ensureRecaptchaLoaded() {
+      if (!recaptchaContainer || recaptchaContainer.getAttribute('data-recaptcha-required') !== 'true') {
+        return Promise.resolve(true);
+      }
+
+      if (!recaptchaConfigured) {
+        return Promise.resolve(false);
+      }
+
+      if (typeof window.grecaptcha !== 'undefined' && typeof window.grecaptcha.getResponse === 'function') {
+        recaptchaReady = true;
+        return Promise.resolve(true);
+      }
+
+      if (recaptchaLoadingPromise) {
+        return recaptchaLoadingPromise;
+      }
+
+      recaptchaLoadingPromise = new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'https://www.google.com/recaptcha/api.js';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          recaptchaReady = typeof window.grecaptcha !== 'undefined' && typeof window.grecaptcha.getResponse === 'function';
+          resolve(recaptchaReady);
+        };
+        script.onerror = () => {
+          recaptchaReady = false;
+          resolve(false);
+        };
+        document.head.appendChild(script);
+      });
+
+      return recaptchaLoadingPromise;
+    }
 
     function messageForField(field) {
       if (field.validity.valueMissing) {
@@ -643,9 +686,9 @@
         return false;
       }
 
-      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
+      if (!recaptchaReady || typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
         if (recaptchaErrorElement) {
-          recaptchaErrorElement.textContent = 'reCAPTCHA failed to load. Please refresh and try again.';
+          recaptchaErrorElement.textContent = 'reCAPTCHA is still loading. Please wait a moment.';
         }
         return false;
       }
@@ -677,7 +720,8 @@
     }
 
     function scrollToFormTop() {
-      const cardHeader = inquiryForm.closest('.form-card')?.querySelector('.form-card-header');
+      const formCard = inquiryForm.closest('.form-card');
+      const cardHeader = formCard ? formCard.querySelector('.form-card-header') : null;
       const target = cardHeader || inquiryForm;
       if (!target) return;
 
@@ -698,13 +742,21 @@
 
       updateNavigation(currentStep);
       updateProgress(currentStep);
+
+      if (currentStep === totalSteps) {
+        ensureRecaptchaLoaded();
+      }
     }
 
     inquiryForm.querySelectorAll('input, select, textarea').forEach((field) => {
-      field.addEventListener('input', () => clearFieldError(field));
+      field.addEventListener('input', () => {
+        clearFieldError(field);
+        if (successMessage) successMessage.style.display = 'none';
+      });
       field.addEventListener('change', () => {
         clearFieldError(field);
         syncChoiceVisuals();
+        if (successMessage) successMessage.style.display = 'none';
       });
     });
 
@@ -732,6 +784,7 @@
         if (!validateStep(stepIndex)) {
           allValid = false;
           showStep(stepIndex);
+          scrollToFormTop();
           break;
         }
       }
@@ -739,6 +792,8 @@
       if (!allValid) {
         return;
       }
+
+      await ensureRecaptchaLoaded();
 
       if (!validateRecaptcha()) {
         return;
