@@ -138,150 +138,66 @@ Our commitment goes beyond delivery - we provide continuous technical support to
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-5">
+          {% for service in services %}
+          <div
+            class="col-lg-3 col-md-6"
+            data-aos="fade-up"
+            data-aos-delay="{% if forloop.counter == 1 %}100{% elif forloop.counter == 2 or forloop.counter == 3 %}200{% else %}400{% endif %}">
+            <div class="service-card service-card-flip" data-service-card>
+              <div class="service-card-inner">
+                <div class="service-face service-face-front">
+                  <div class="service-img">
+                    <img src="{{ service.image.url }}" class="img-fluid" alt="{{ service.title }}">
+                    <div class="social-overlay">
+                      <div class="social-links">
+                        <button
+                          type="button"
+                          class="service-flip-trigger"
+                          aria-label="Flip card to service summary"
+                          title="View service summary">
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service-info">
+                    <span class="service-badge">Service {{ forloop.counter }}</span>
+                    <h4>{{ service.title }}</h4>
+                  </div>
+                </div>
 
-          <!-- Service Card 1 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service1.webp' %}" class="img-fluid" alt="Web & Digital Platform Development">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/web-digital-platform-development/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 1</span>
-                <h4>Web & Digital Platform Development</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
+                <div class="service-face service-face-back">
+                  <button
+                    type="button"
+                    class="service-flip-back"
+                    aria-label="Back to service front"
+                    title="Back">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                  </button>
 
-          <!-- Service Card 2 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service2.webp' %}" class="img-fluid" alt="Custom System Development">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/custom-system-development/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    
+                  <div class="service-back-content">
+                    <h4>{{ service.title }}</h4>
+                    <p class="service-back-description">
+                      <span class="service-back-label">Service Description:</span>
+                      <span class="service-back-value">
+                        {{ service.short_description|default:"Tailored solution designed to fit your exact business requirements with high reliability and scalability." }}
+                      </span>
+                    </p>
+                    <p class="service-back-pricing">
+                      <span class="service-back-label">Estimated Price:</span>
+                      <span class="service-back-value">{{ service.pricing_text|default:"Custom Pricing" }}</span>
+                    </p>
+                    <a href="#contact" class="service-back-cta">Start Your Project</a>
                   </div>
                 </div>
               </div>
-              <div class="service-info">
-                <span class="service-badge">Service 2</span>
-                <h4>Custom System Development</h4>
-              </div>
             </div>
-          </div><!-- End Service Card -->
-
-          <!-- Service Card 3 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service3.webp' %}" class="img-fluid" alt="Digital Process Automation">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/digital-process-automation/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 3</span>
-                <h4>Digital Process Automation</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-
-          <!-- Service Card 4 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service4.webp' %}" class="img-fluid" alt="AI Integration Solutions">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/ai-integration-solutions/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 4</span>
-                <h4>AI Integration Solutions</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-          <!-- Service Card 5 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service5.webp' %}" class="img-fluid" alt="Odoo Customization &amp; Development">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/odoo-customization-development/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 5</span>
-                <h4>Odoo Customization &amp; Development</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-          <!-- Service Card 6 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service6.webp' %}" class="img-fluid" alt="Payment Gateway Integration">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/payment-gateway-integration/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 6</span>
-                <h4>Payment Gateway Integration</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
-          <!-- Service Card 7 -->
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-card">
-              <div class="service-img">
-                <img src="{% static 'img/services/service7.webp' %}" class="img-fluid" alt="System Maintenance &amp; Security">
-                <div class="social-overlay">
-                  <div class="social-links">
-                    <a href="/services/system-maintenance-security/" aria-label="View service details" title="View details">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                   
-                  </div>
-                </div>
-              </div>
-              <div class="service-info">
-                <span class="service-badge">Service 7</span>
-                <h4>System Maintenance &amp; Security</h4>
-              </div>
-            </div>
-          </div><!-- End Service Card -->
+          </div>
+          {% empty %}
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-center text-white-50 mb-0">Services will appear here soon.</p>
+          </div>
+          {% endfor %}
 
         </div>
 

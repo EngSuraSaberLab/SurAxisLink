@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render
+from services.models import Service
 
 def home(request):
     return render(
@@ -7,6 +8,7 @@ def home(request):
         'core/home.html',
         {
             'recaptcha_site_key': settings.RECAPTCHA_SITE_KEY,
+            'services': Service.objects.filter(is_active=True).order_by('order'),
         },
     )
 

@@ -513,6 +513,63 @@
   window.addEventListener('load', initReferenceButtonEffects);
 
   /**
+   * Services flip cards (click/tap)
+   */
+  function initServiceFlipCards() {
+    const cards = Array.from(document.querySelectorAll('[data-service-card]'));
+    if (!cards.length) return;
+
+    function closeOtherCards(currentCard) {
+      cards.forEach((card) => {
+        if (card !== currentCard) {
+          card.classList.remove('is-flipped');
+        }
+      });
+    }
+
+    cards.forEach((card) => {
+      const trigger = card.querySelector('.service-flip-trigger');
+      const backButton = card.querySelector('.service-flip-back');
+      const frontFace = card.querySelector('.service-face-front');
+
+      if (trigger) {
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          closeOtherCards(card);
+          card.classList.add('is-flipped');
+        });
+      }
+
+      if (backButton) {
+        backButton.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          card.classList.remove('is-flipped');
+        });
+      }
+
+      if (frontFace) {
+        frontFace.addEventListener('click', (event) => {
+          if (card.classList.contains('is-flipped')) return;
+          if (event.target.closest('.service-flip-trigger')) return;
+          card.classList.toggle('is-active');
+        });
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      cards.forEach((card) => {
+        if (!card.contains(event.target)) {
+          card.classList.remove('is-active');
+        }
+      });
+    });
+  }
+
+  window.addEventListener('load', initServiceFlipCards);
+
+  /**
    * Project inquiry multi-step form
    */
   function initProjectInquiryForm() {
