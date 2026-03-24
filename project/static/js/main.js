@@ -535,6 +535,7 @@
     const errorMessage = inquiryForm.querySelector('.error-message');
     const loadingMessage = inquiryForm.querySelector('.loading');
     let currentStep = 1;
+    let lastInvalidField = null;
     let recaptchaLoadingPromise = null;
     let recaptchaReady = typeof window.grecaptcha !== 'undefined' && typeof window.grecaptcha.getResponse === 'function';
     const recaptchaWidget = recaptchaContainer ? recaptchaContainer.querySelector('.g-recaptcha') : null;
@@ -637,6 +638,7 @@
       const requiredFields = Array.from(stepElement.querySelectorAll('[required]'));
       const handledRadioNames = new Set();
       let valid = true;
+      lastInvalidField = null;
 
       requiredFields.forEach((field) => {
         clearFieldError(field);
@@ -653,6 +655,9 @@
           if (!isChecked) {
             valid = false;
             setFieldError(field, 'Please choose one option.');
+            if (!lastInvalidField) {
+              lastInvalidField = field;
+            }
           }
           return;
         }
@@ -660,16 +665,41 @@
         if (typeof field.value === 'string' && field.value.trim() === '') {
           valid = false;
           setFieldError(field, 'This field is required.');
+          if (!lastInvalidField) {
+            lastInvalidField = field;
+          }
           return;
         }
 
         if (!field.checkValidity()) {
           valid = false;
           setFieldError(field, messageForField(field));
+          if (!lastInvalidField) {
+            lastInvalidField = field;
+          }
         }
       });
 
       return valid;
+    }
+
+    function focusFirstInvalidField() {
+      if (!lastInvalidField) return;
+
+      const header = document.querySelector('#header');
+      const headerHeight = header ? header.offsetHeight : 0;
+      const targetElement = lastInvalidField.closest('.input-wrapper, .choice-group, .consent-check') || lastInvalidField;
+      const targetTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      const offsetTop = Math.max(0, targetTop - headerHeight - 18);
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+      window.scrollTo({ top: offsetTop, behavior });
+
+      if (typeof lastInvalidField.focus === 'function') {
+        window.setTimeout(() => {
+          lastInvalidField.focus({ preventScroll: true });
+        }, 140);
+      }
     }
 
     function validateRecaptcha() {
@@ -727,7 +757,11 @@
 
       const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
       window.setTimeout(() => {
-        target.scrollIntoView({ behavior, block: 'start' });
+        const header = document.querySelector('#header');
+        const headerHeight = header ? header.offsetHeight : 0;
+        const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+        const offsetTop = Math.max(0, targetTop - headerHeight - 12);
+        window.scrollTo({ top: offsetTop, behavior });
       }, 40);
     }
 
@@ -762,7 +796,10 @@
 
     if (nextButton) {
       nextButton.addEventListener('click', () => {
-        if (!validateStep(currentStep)) return;
+        if (!validateStep(currentStep)) {
+          focusFirstInvalidField();
+          return;
+        }
         showStep(currentStep + 1);
         scrollToFormTop();
       });
@@ -784,7 +821,9 @@
         if (!validateStep(stepIndex)) {
           allValid = false;
           showStep(stepIndex);
-          scrollToFormTop();
+          window.setTimeout(() => {
+            focusFirstInvalidField();
+          }, 60);
           break;
         }
       }
