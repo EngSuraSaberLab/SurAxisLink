@@ -228,9 +228,9 @@
    * Init isotope layout and filters
    */
   document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
-    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
-    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
-    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+    let layout = isotopeItem.getAttribute('data-layout') || 'masonry';
+    let filter = isotopeItem.getAttribute('data-default-filter') || '*';
+    let sort = isotopeItem.getAttribute('data-sort') || 'original-order';
 
     let initIsotope;
     imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
@@ -346,6 +346,12 @@
 
     function particleCount() {
       const densityBase = state.viewportWidth * state.viewportHeight;
+      if (state.viewportWidth <= 575) {
+        return Math.max(24, Math.min(40, Math.round(densityBase / 26000)));
+      }
+      if (state.viewportWidth <= 991) {
+        return Math.max(36, Math.min(70, Math.round(densityBase / 21000)));
+      }
       return Math.max(110, Math.min(220, Math.round(densityBase / 14000)));
     }
 
@@ -501,6 +507,289 @@
   }
 
   window.addEventListener('load', initReferenceButtonEffects);
+
+  /**
+   * Project inquiry multi-step form
+   */
+  function initProjectInquiryForm() {
+    const inquiryForm = document.querySelector('.project-inquiry-form');
+
+    if (!inquiryForm) return;
+
+    const steps = Array.from(inquiryForm.querySelectorAll('.project-step'));
+    const totalSteps = steps.length;
+    const prevButton = inquiryForm.querySelector('[data-project-prev]');
+    const nextButton = inquiryForm.querySelector('[data-project-next]');
+    const submitButton = inquiryForm.querySelector('[data-project-submit]');
+    const stepNumberElement = inquiryForm.querySelector('[data-current-step]');
+    const progressElement = inquiryForm.querySelector('[data-progress-fill]');
+    const progressPercentElement = inquiryForm.querySelector('[data-progress-percent]');
+    const progressTrack = inquiryForm.querySelector('.project-form-progress__track');
+    const recaptchaContainer = inquiryForm.querySelector('.project-recaptcha[data-recaptcha-required="true"]');
+    const recaptchaErrorElement = inquiryForm.querySelector('[data-recaptcha-error]');
+    const successMessage = inquiryForm.querySelector('.sent-message');
+    const errorMessage = inquiryForm.querySelector('.error-message');
+    const loadingMessage = inquiryForm.querySelector('.loading');
+    let currentStep = 1;
+    const recaptchaWidget = recaptchaContainer ? recaptchaContainer.querySelector('.g-recaptcha') : null;
+    const recaptchaSiteKey = recaptchaWidget ? (recaptchaWidget.getAttribute('data-sitekey') || '').trim() : '';
+    const recaptchaConfigured = Boolean(recaptchaWidget && recaptchaSiteKey && !/^YOUR_/i.test(recaptchaSiteKey));
+
+    function messageForField(field) {
+      if (field.validity.valueMissing) {
+        if (field.type === 'checkbox') return 'Please confirm your consent to continue.';
+        return 'This field is required.';
+      }
+
+      if (field.validity.typeMismatch && field.type === 'email') {
+        return 'Please enter a valid email address.';
+      }
+
+      if (field.validity.patternMismatch && field.name === 'phone_whatsapp') {
+        return 'Please enter a valid phone or WhatsApp number.';
+      }
+
+      if (field.validity.tooShort) {
+        return `Please enter at least ${field.minLength} characters.`;
+      }
+
+      return 'Please check this field.';
+    }
+
+    function clearFieldError(field) {
+      const wrapper = field.closest('.input-wrapper');
+      const group = field.closest('.input-group-custom');
+      const choiceGroup = field.closest('.choice-group');
+      const consentBlock = field.closest('.consent-check');
+      const errorElement = (group && group.querySelector('.field-error')) || (consentBlock && consentBlock.parentElement.querySelector('.field-error'));
+
+      if (wrapper) wrapper.classList.remove('is-invalid');
+      if (choiceGroup) choiceGroup.classList.remove('is-invalid');
+      if (errorElement) errorElement.textContent = '';
+    }
+
+    function syncChoiceVisuals() {
+      inquiryForm.querySelectorAll('.choice-group').forEach((group) => {
+        group.querySelectorAll('.choice-item').forEach((item) => {
+          const input = item.querySelector('input[type="radio"]');
+          item.classList.toggle('is-selected', Boolean(input && input.checked));
+        });
+      });
+    }
+
+    function setFieldError(field, message) {
+      const wrapper = field.closest('.input-wrapper');
+      const group = field.closest('.input-group-custom');
+      const choiceGroup = field.closest('.choice-group');
+      const consentBlock = field.closest('.consent-check');
+      const errorElement = (group && group.querySelector('.field-error')) || (consentBlock && consentBlock.parentElement.querySelector('.field-error'));
+
+      if (wrapper) wrapper.classList.add('is-invalid');
+      if (choiceGroup) choiceGroup.classList.add('is-invalid');
+      if (errorElement) errorElement.textContent = message;
+    }
+
+    function validateStep(stepIndex) {
+      const stepElement = steps[stepIndex - 1];
+      const requiredFields = Array.from(stepElement.querySelectorAll('[required]'));
+      const handledRadioNames = new Set();
+      let valid = true;
+
+      requiredFields.forEach((field) => {
+        clearFieldError(field);
+      });
+
+      requiredFields.forEach((field) => {
+        if (field.type === 'radio') {
+          if (handledRadioNames.has(field.name)) return;
+          handledRadioNames.add(field.name);
+
+          const groupFields = Array.from(stepElement.querySelectorAll(`input[type="radio"][name="${field.name}"]`));
+          const isChecked = groupFields.some((radio) => radio.checked);
+
+          if (!isChecked) {
+            valid = false;
+            setFieldError(field, 'Please choose one option.');
+          }
+          return;
+        }
+
+        if (typeof field.value === 'string' && field.value.trim() === '') {
+          valid = false;
+          setFieldError(field, 'This field is required.');
+          return;
+        }
+
+        if (!field.checkValidity()) {
+          valid = false;
+          setFieldError(field, messageForField(field));
+        }
+      });
+
+      return valid;
+    }
+
+    function validateRecaptcha() {
+      if (!recaptchaContainer || recaptchaContainer.getAttribute('data-recaptcha-required') !== 'true') return true;
+
+      if (recaptchaErrorElement) {
+        recaptchaErrorElement.textContent = '';
+      }
+
+      if (!recaptchaConfigured) {
+        if (recaptchaErrorElement) {
+          recaptchaErrorElement.textContent = 'Please set a valid reCAPTCHA site key in the template.';
+        }
+        return false;
+      }
+
+      if (typeof grecaptcha === 'undefined' || typeof grecaptcha.getResponse !== 'function') {
+        if (recaptchaErrorElement) {
+          recaptchaErrorElement.textContent = 'reCAPTCHA failed to load. Please refresh and try again.';
+        }
+        return false;
+      }
+
+      const token = grecaptcha.getResponse();
+      if (!token) {
+        if (recaptchaErrorElement) {
+          recaptchaErrorElement.textContent = 'Please complete the reCAPTCHA check.';
+        }
+        return false;
+      }
+
+      return true;
+    }
+
+    function updateProgress(stepIndex) {
+      const progressPercentage = Math.round((stepIndex / totalSteps) * 100);
+
+      if (stepNumberElement) stepNumberElement.textContent = `${stepIndex}`;
+      if (progressElement) progressElement.style.width = `${progressPercentage}%`;
+      if (progressPercentElement) progressPercentElement.textContent = `${progressPercentage}%`;
+      if (progressTrack) progressTrack.setAttribute('aria-valuenow', `${stepIndex}`);
+    }
+
+    function updateNavigation(stepIndex) {
+      if (prevButton) prevButton.hidden = stepIndex === 1;
+      if (nextButton) nextButton.hidden = stepIndex === totalSteps;
+      if (submitButton) submitButton.hidden = stepIndex !== totalSteps;
+    }
+
+    function scrollToFormTop() {
+      const cardHeader = inquiryForm.closest('.form-card')?.querySelector('.form-card-header');
+      const target = cardHeader || inquiryForm;
+      if (!target) return;
+
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      window.setTimeout(() => {
+        target.scrollIntoView({ behavior, block: 'start' });
+      }, 40);
+    }
+
+    function showStep(stepIndex) {
+      currentStep = Math.max(1, Math.min(totalSteps, stepIndex));
+
+      steps.forEach((stepElement, index) => {
+        const isActive = index + 1 === currentStep;
+        stepElement.hidden = !isActive;
+        stepElement.classList.toggle('is-active', isActive);
+      });
+
+      updateNavigation(currentStep);
+      updateProgress(currentStep);
+    }
+
+    inquiryForm.querySelectorAll('input, select, textarea').forEach((field) => {
+      field.addEventListener('input', () => clearFieldError(field));
+      field.addEventListener('change', () => {
+        clearFieldError(field);
+        syncChoiceVisuals();
+      });
+    });
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        if (!validateStep(currentStep)) return;
+        showStep(currentStep + 1);
+        scrollToFormTop();
+      });
+    }
+
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        showStep(currentStep - 1);
+        scrollToFormTop();
+      });
+    }
+
+    inquiryForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      let allValid = true;
+
+      for (let stepIndex = 1; stepIndex <= totalSteps; stepIndex += 1) {
+        if (!validateStep(stepIndex)) {
+          allValid = false;
+          showStep(stepIndex);
+          break;
+        }
+      }
+
+      if (!allValid) {
+        return;
+      }
+
+      if (!validateRecaptcha()) {
+        return;
+      }
+
+      const formData = new FormData(inquiryForm);
+
+      if (errorMessage) errorMessage.style.display = 'none';
+      if (successMessage) successMessage.style.display = 'none';
+      if (loadingMessage) loadingMessage.style.display = 'block';
+
+      try {
+        const response = await fetch(inquiryForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+
+        const payload = await response.json().catch(() => ({ ok: false, message: 'Unexpected server response.' }));
+        if (!response.ok || !payload.ok) {
+          if (errorMessage) {
+            errorMessage.textContent = payload.message || 'Could not submit your request. Please try again.';
+            errorMessage.style.display = 'block';
+          }
+          return;
+        }
+
+        inquiryForm.reset();
+        showStep(1);
+        if (successMessage) successMessage.style.display = 'block';
+      } catch (_) {
+        if (errorMessage) {
+          errorMessage.textContent = 'Network error. Please check your connection and try again.';
+          errorMessage.style.display = 'block';
+        }
+      } finally {
+        if (loadingMessage) loadingMessage.style.display = 'none';
+      }
+
+      if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function' && recaptchaConfigured) {
+        grecaptcha.reset();
+      }
+    });
+
+    showStep(1);
+    syncChoiceVisuals();
+  }
+
+  window.addEventListener('load', initProjectInquiryForm);
 
   /**
    * Hero typing animation
