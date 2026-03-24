@@ -12,7 +12,7 @@ from django.views.decorators.http import require_POST
 from .models import ProjectInquiry
 
 
-PHONE_REGEX = re.compile(r'^\+?[0-9\s().-]{8,20}$')
+PHONE_REGEX = re.compile(r'^(?:\+9647\d{9}|07\d{9})$')
 ALLOWED_SERVICES = {
     'Web Development',
     'Custom System Development',
@@ -88,8 +88,12 @@ def project_inquiry_submit(request):
     except Exception:
         return JsonResponse({'ok': False, 'message': 'Please provide a valid email address.'}, status=400)
 
-    if not PHONE_REGEX.fullmatch(phone_whatsapp):
-        return JsonResponse({'ok': False, 'message': 'Please provide a valid phone/WhatsApp number.'}, status=400)
+    normalized_phone = re.sub(r'\s+', '', phone_whatsapp)
+    if not PHONE_REGEX.fullmatch(normalized_phone):
+        return JsonResponse(
+            {'ok': False, 'message': 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX).'},
+            status=400,
+        )
 
     if len(company_project_name) > 150:
         return JsonResponse({'ok': False, 'message': 'Company / Project Name is too long.'}, status=400)
@@ -185,7 +189,7 @@ def project_inquiry_submit(request):
     ProjectInquiry.objects.create(
         full_name=full_name,
         email=email,
-        phone_whatsapp=phone_whatsapp,
+        phone_whatsapp=normalized_phone,
         company_project_name=company_project_name,
         service_needed=service_needed,
         project_type=project_type,

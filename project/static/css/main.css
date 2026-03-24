@@ -7714,6 +7714,126 @@ section,
 }
 
 /*--------------------------------------------------------------
+# Legal Pages Brand Alignment
+--------------------------------------------------------------*/
+.privacy-page .main,
+.terms-page .main,
+.cookies-page .main {
+  padding-top: 18px;
+}
+
+.legal-page-header {
+  margin: 0 auto 34px;
+  padding: 26px 24px;
+  border-radius: 20px;
+  text-align: center;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82)) padding-box,
+    linear-gradient(315deg, rgba(79, 172, 254, 0.62), rgba(139, 92, 246, 0.68), rgba(240, 147, 251, 0.62), rgba(118, 75, 162, 0.62)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 14px 34px rgba(69, 41, 113, 0.15);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.legal-page-header h1,
+.legal-page-header h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  color: var(--heading-color);
+}
+
+.legal-page-header p {
+  margin: 0 auto 14px;
+  max-width: 760px;
+  color: color-mix(in srgb, var(--default-color) 80%, transparent);
+}
+
+.legal-page-header__badge,
+.legal-page-header .header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.84rem;
+  background: linear-gradient(125deg, #8b5cf6, #a574f5 58%, #d277c8);
+  box-shadow: 0 8px 20px rgba(116, 73, 182, 0.26);
+}
+
+.legal-page-header__date,
+.legal-page-header .update-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: color-mix(in srgb, var(--default-color) 62%, transparent);
+  font-size: 0.86rem;
+}
+
+.privacy .sidebar-nav,
+.terms-of-service .quick-nav {
+  border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.88));
+  box-shadow: 0 10px 30px rgba(69, 41, 113, 0.08);
+}
+
+.privacy .policy-intro-card,
+.terms-of-service .highlight-card,
+.terms-of-service .disclaimer-panel {
+  border-radius: 16px;
+}
+
+.privacy .policy-section,
+.terms-of-service .terms-body .terms-article {
+  border-bottom-color: color-mix(in srgb, var(--accent-color) 16%, transparent);
+}
+
+.privacy .policy-section .section-content h2,
+.terms-of-service .terms-body .terms-article .article-content h3 {
+  letter-spacing: -0.01em;
+}
+
+.privacy .contact-section .contact-cards .contact-card,
+.terms-of-service .checklist .check-item,
+.terms-of-service .restrictions-grid .restriction-card {
+  border-radius: 14px;
+}
+
+.privacy .sidebar-nav .nav-links li a,
+.terms-of-service .quick-nav .nav-links a {
+  transition: all 0.24s ease;
+}
+
+.privacy .sidebar-nav .nav-links li a:hover,
+.terms-of-service .quick-nav .nav-links a:hover {
+  transform: translateY(-1px);
+}
+
+.privacy .policy-section .section-content a,
+.terms-of-service .terms-body .terms-article .article-content a {
+  color: color-mix(in srgb, var(--accent-color) 88%, #2f2346);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 767.98px) {
+  .legal-page-header {
+    padding: 22px 18px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+  }
+
+  .privacy-page .main,
+  .terms-page .main,
+  .cookies-page .main {
+    padding-top: 8px;
+  }
+}
+
+/*--------------------------------------------------------------
 # Error 404 Section
 --------------------------------------------------------------*/
 .error-404 {

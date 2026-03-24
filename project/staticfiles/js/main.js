@@ -599,6 +599,7 @@
     const recaptchaWidget = recaptchaContainer ? recaptchaContainer.querySelector('.g-recaptcha') : null;
     const recaptchaSiteKey = recaptchaWidget ? (recaptchaWidget.getAttribute('data-sitekey') || '').trim() : '';
     const recaptchaConfigured = Boolean(recaptchaWidget && recaptchaSiteKey && !/^YOUR_/i.test(recaptchaSiteKey));
+    const iraqiPhoneRegex = /^(?:\+9647\d{9}|07\d{9})$/;
 
     function ensureRecaptchaLoaded() {
       if (!recaptchaContainer || recaptchaContainer.getAttribute('data-recaptcha-required') !== 'true') {
@@ -639,6 +640,9 @@
 
     function messageForField(field) {
       if (field.validity.valueMissing) {
+        if (field.name === 'phone_whatsapp') {
+          return 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)';
+        }
         if (field.type === 'checkbox' && field.name === 'project_consent') {
           return 'You must accept the Privacy Policy and Terms of Service before submitting.';
         }
@@ -651,7 +655,7 @@
       }
 
       if (field.validity.patternMismatch && field.name === 'phone_whatsapp') {
-        return 'Please enter a valid phone or WhatsApp number.';
+        return 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)';
       }
 
       if (field.validity.tooShort) {
@@ -725,11 +729,23 @@
 
         if (typeof field.value === 'string' && field.value.trim() === '') {
           valid = false;
-          setFieldError(field, 'This field is required.');
+          setFieldError(field, messageForField(field));
           if (!lastInvalidField) {
             lastInvalidField = field;
           }
           return;
+        }
+
+        if (field.name === 'phone_whatsapp') {
+          const normalizedValue = field.value.replace(/\s+/g, '');
+          if (!iraqiPhoneRegex.test(normalizedValue)) {
+            valid = false;
+            setFieldError(field, 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)');
+            if (!lastInvalidField) {
+              lastInvalidField = field;
+            }
+            return;
+          }
         }
 
         if (!field.checkValidity()) {
@@ -855,14 +871,34 @@
 
     inquiryForm.querySelectorAll('input, select, textarea').forEach((field) => {
       field.addEventListener('input', () => {
-        clearFieldError(field);
+        if (field.name === 'phone_whatsapp') {
+          const phoneValue = field.value.replace(/\s+/g, '');
+          const isValidPhone = iraqiPhoneRegex.test(phoneValue);
+          if (phoneValue === '' || isValidPhone) {
+            clearFieldError(field);
+          } else {
+            setFieldError(field, 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)');
+          }
+        } else {
+          clearFieldError(field);
+        }
         if (successMessage) successMessage.style.display = 'none';
         if (field === legalConsentCheckbox) {
           updateSubmitAvailability();
         }
       });
       field.addEventListener('change', () => {
-        clearFieldError(field);
+        if (field.name === 'phone_whatsapp') {
+          const phoneValue = field.value.replace(/\s+/g, '');
+          const isValidPhone = iraqiPhoneRegex.test(phoneValue);
+          if (phoneValue === '' || isValidPhone) {
+            clearFieldError(field);
+          } else {
+            setFieldError(field, 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)');
+          }
+        } else {
+          clearFieldError(field);
+        }
         syncChoiceVisuals();
         if (successMessage) successMessage.style.display = 'none';
         if (field === legalConsentCheckbox) {
