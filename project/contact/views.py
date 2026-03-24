@@ -133,7 +133,10 @@ def project_inquiry_submit(request):
         return JsonResponse({'ok': False, 'message': 'Additional notes are too long.'}, status=400)
 
     if project_consent_raw != 'on':
-        return JsonResponse({'ok': False, 'message': 'Consent is required before submission.'}, status=400)
+        return JsonResponse(
+            {'ok': False, 'message': 'You must accept the Privacy Policy and Terms of Service before submission.'},
+            status=400,
+        )
 
     recaptcha_response = request.POST.get('g-recaptcha-response', '').strip()
     if not recaptcha_response:

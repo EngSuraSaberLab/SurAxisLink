@@ -477,10 +477,18 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                     </div>
 
                     <div class="col-12">
-                      <label class="consent-check">
-                        <input type="checkbox" name="project_consent" required>
-                        <span>I agree to be contacted regarding this project inquiry.</span>
-                      </label>
+                      <div class="consent-block">
+                        <label class="consent-check" for="project_legal_consent">
+                          <input id="project_legal_consent" type="checkbox" name="project_consent" required>
+                          <span>
+                            I have read and agree to the
+                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                            and
+                            <a href="{% url 'terms_of_service' %}" target="_blank" rel="noopener noreferrer">Terms of Service</a>.
+                          </span>
+                        </label>
+                        <p class="consent-helper">Your information is used only to review and respond to your project inquiry.</p>
+                      </div>
                       <small class="field-error" aria-live="polite"></small>
                     </div>
 

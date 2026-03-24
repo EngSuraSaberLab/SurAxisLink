@@ -588,6 +588,7 @@
     const progressTrack = inquiryForm.querySelector('.project-form-progress__track');
     const recaptchaContainer = inquiryForm.querySelector('.project-recaptcha[data-recaptcha-required="true"]');
     const recaptchaErrorElement = inquiryForm.querySelector('[data-recaptcha-error]');
+    const legalConsentCheckbox = inquiryForm.querySelector('input[name="project_consent"]');
     const successMessage = inquiryForm.querySelector('.sent-message');
     const errorMessage = inquiryForm.querySelector('.error-message');
     const loadingMessage = inquiryForm.querySelector('.loading');
@@ -638,6 +639,9 @@
 
     function messageForField(field) {
       if (field.validity.valueMissing) {
+        if (field.type === 'checkbox' && field.name === 'project_consent') {
+          return 'You must accept the Privacy Policy and Terms of Service before submitting.';
+        }
         if (field.type === 'checkbox') return 'Please confirm your consent to continue.';
         return 'This field is required.';
       }
@@ -800,10 +804,20 @@
       if (progressTrack) progressTrack.setAttribute('aria-valuenow', `${stepIndex}`);
     }
 
+    function updateSubmitAvailability() {
+      if (!submitButton) return;
+
+      const isLastStep = currentStep === totalSteps;
+      const isConsentChecked = legalConsentCheckbox ? legalConsentCheckbox.checked : true;
+      submitButton.disabled = isLastStep ? !isConsentChecked : true;
+      submitButton.setAttribute('aria-disabled', submitButton.disabled ? 'true' : 'false');
+    }
+
     function updateNavigation(stepIndex) {
       if (prevButton) prevButton.hidden = stepIndex === 1;
       if (nextButton) nextButton.hidden = stepIndex === totalSteps;
       if (submitButton) submitButton.hidden = stepIndex !== totalSteps;
+      updateSubmitAvailability();
     }
 
     function scrollToFormTop() {
@@ -843,11 +857,17 @@
       field.addEventListener('input', () => {
         clearFieldError(field);
         if (successMessage) successMessage.style.display = 'none';
+        if (field === legalConsentCheckbox) {
+          updateSubmitAvailability();
+        }
       });
       field.addEventListener('change', () => {
         clearFieldError(field);
         syncChoiceVisuals();
         if (successMessage) successMessage.style.display = 'none';
+        if (field === legalConsentCheckbox) {
+          updateSubmitAvailability();
+        }
       });
     });
 
@@ -938,6 +958,7 @@
 
     showStep(1);
     syncChoiceVisuals();
+    updateSubmitAvailability();
   }
 
   window.addEventListener('load', initProjectInquiryForm);
