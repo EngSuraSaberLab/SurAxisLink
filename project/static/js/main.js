@@ -1003,6 +1003,7 @@
    * Hero typing animation
    */
   function initHeroTypingAnimation() {
+    const heroSection = document.querySelector('#hero');
     const tagTypingTargets = Array.from(document.querySelectorAll('#hero .typing-target'))
       .sort((firstElement, secondElement) => {
         const firstSequence = Number(firstElement.dataset.typingSequence || 0);
@@ -1025,6 +1026,9 @@
     }
 
     const mobileQuery = window.matchMedia('(max-width: 576px)');
+    const revealTargets = Array.from(document.querySelectorAll('#hero [data-hero-reveal]'));
+    const questionMark = document.querySelector('#hero .tag-question-mark');
+    let heroDetailsRevealed = false;
 
     const tagTypingState = tagTypingTargets.map((element) => {
       const originalText = element.textContent.trim();
@@ -1083,6 +1087,48 @@
 
     syncTypingLayoutConstraints();
     mobileQuery.addEventListener('change', syncTypingLayoutConstraints);
+
+    if (questionMark) {
+      questionMark.classList.add('question-mark-animated');
+    }
+
+    function popQuestionMark() {
+      if (!questionMark) return;
+      questionMark.classList.remove('is-popped');
+      void questionMark.offsetWidth;
+      questionMark.classList.add('is-popped');
+    }
+
+    function hideQuestionMark() {
+      if (!questionMark) return;
+      questionMark.classList.remove('is-popped');
+    }
+
+    function popStepBadge(element) {
+      if (!element || !element.dataset.stepNumber) return;
+      element.classList.remove('step-popped');
+      void element.offsetWidth;
+      element.classList.add('step-popped');
+    }
+
+    function hideStepBadge(element) {
+      if (!element || !element.dataset.stepNumber) return;
+      element.classList.remove('step-popped');
+    }
+
+    function setHeroDetailsVisible(visible) {
+      revealTargets.forEach((element) => {
+        element.classList.toggle('is-visible', visible);
+      });
+    }
+
+    function syncHeroDetailsVisibilityMode() {
+      if (!heroSection || !revealTargets.length) return;
+      heroSection.classList.add('hero-typing-ready');
+      setHeroDetailsVisible(heroDetailsRevealed);
+    }
+
+    syncHeroDetailsVisibilityMode();
 
     function typeText(element, text, speed) {
       return new Promise((resolve) => {
@@ -1156,27 +1202,39 @@
         await waitForVisibility();
 
         for (const item of tagTypingState) {
-          const speed = item.element.classList.contains('tag-dot') ? 140 : 42;
+          const speed = item.element.classList.contains('tag-dot') ? 140 : 60;
           await typeText(item.element, item.text, speed);
           await new Promise((resolve) => window.setTimeout(resolve, 180));
         }
+        popQuestionMark();
 
         for (const item of lineTypingState) {
           await waitForVisibility();
-          await typeText(item.element, item.text, 44);
-          await new Promise((resolve) => window.setTimeout(resolve, 220));
+          const lineTypingSpeed = mobileQuery.matches ? 44 : 60;
+          const linePause = mobileQuery.matches ? 120 : 220;
+          popStepBadge(item.element);
+          await new Promise((resolve) => window.setTimeout(resolve, 90));
+          await typeText(item.element, item.text, lineTypingSpeed);
+          await new Promise((resolve) => window.setTimeout(resolve, linePause));
         }
 
-        await new Promise((resolve) => window.setTimeout(resolve, 1300));
+        if (!heroDetailsRevealed) {
+          heroDetailsRevealed = true;
+          syncHeroDetailsVisibilityMode();
+        }
+
+        await new Promise((resolve) => window.setTimeout(resolve, 2000));
         await waitForVisibility();
 
         for (const item of [...lineTypingState].reverse()) {
+          hideStepBadge(item.element);
           await deleteText(item.element, 24);
           await new Promise((resolve) => window.setTimeout(resolve, 140));
         }
 
         await new Promise((resolve) => window.setTimeout(resolve, 260));
         await waitForVisibility();
+        hideQuestionMark();
 
         for (const item of [...tagTypingState].reverse()) {
           const speed = item.element.classList.contains('tag-dot') ? 90 : 24;

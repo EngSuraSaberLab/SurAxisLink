@@ -246,13 +246,17 @@ msgstr "الرئيسية - SurAxisTech"
 msgid "How We Build Solutions at SurAxisTech?"
 msgstr "كيف نبني الحلول في SurAxisTech؟"
 
+#: .\project\templates\core\home.html:20
+msgid "How We Build Solutions at SurAxisTech"
+msgstr "كيف نبني الحلول في SurAxisTech"
+
 #: .\project\templates\core\home.html:24
 msgid "We Discover the Problem"
 msgstr "نكتشف المشكلة"
 
 #: .\project\templates\core\home.html:27
 msgid "We Analyze Its Roots"
-msgstr "نحلل جذور المشكلة"
+msgstr "نحلل جذورها"
 
 #: .\project\templates\core\home.html:30
 msgid "We Build the Right Solution"

@@ -1,5 +1,6 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
 {% block title %}{% trans "Home - SurAxisTech" %}{% endblock %}
 
@@ -17,27 +18,25 @@
       <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
         <div class="hero-content hero-content-custom">
           <div class="hero-tag hero-tag-custom" data-aos="fade-up" data-aos-delay="250">
-            <span class="tag-text typing-target" data-typing-sequence="1">{% trans "How We Build Solutions at SurAxisTech?" %}</span>
+            <span class="tag-text typing-target" data-typing-sequence="1">{% trans "How We Build Solutions at SurAxisTech" %}</span>
+            <span class="tag-question-mark" aria-hidden="true">{% if CURRENT_LANGUAGE == 'ar' %}&#x061F;{% else %}?{% endif %}</span>
           </div>
 
-          <h2 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="300" data-typing-sequence="2" aria-live="polite">
+          <h2 class="hero-headline hero-headline-primary typing-line" data-step-number="1" data-aos="fade-up" data-aos-delay="300" data-typing-sequence="2" aria-live="polite">
             {% trans "We Discover the Problem" %}
           </h2>
-          <h3 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="325" data-typing-sequence="3" aria-live="polite">
+          <h3 class="hero-headline hero-headline-primary typing-line" data-step-number="2" data-aos="fade-up" data-aos-delay="325" data-typing-sequence="3" aria-live="polite">
             {% trans "We Analyze Its Roots" %}
           </h3>
-          <h3 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="350" data-typing-sequence="4" aria-live="polite">
+          <h3 class="hero-headline hero-headline-primary typing-line" data-step-number="3" data-aos="fade-up" data-aos-delay="350" data-typing-sequence="4" aria-live="polite">
             {% trans "We Build the Right Solution" %}
           </h3>
          
 
-          <p class="hero-text" data-aos="fade-up" data-aos-delay="375">
-            {% blocktrans trimmed %}
-            We understand your needs deeply, uncover the real root of the problem, and craft tailored digital
-            solutions that fit your business with precision.
-            {% endblocktrans %}
+          <p class="hero-text hero-reveal-on-type" data-hero-reveal data-aos="fade-up" data-aos-delay="375">
+            {% trans "We understand your needs deeply, uncover the real root of the problem, and craft tailored digital solutions that fit your business with precision." %}
           </p>
-          <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
+          <div class="hero-cta hero-reveal-on-type" data-hero-reveal data-aos="fade-up" data-aos-delay="400">
             <a href="#contact" class="hero-start-mobile" aria-label="{% trans 'Start Your Project' %}">
               <span>{% trans "Start Your Project" %}</span>
               <i class="bi bi-arrow-right-circle-fill"></i>
@@ -542,6 +541,8 @@ Our commitment goes beyond delivery - we provide continuous technical support to
     </section><!-- /Contact Section -->
 
 {% endblock %}
+
+
 
 
 

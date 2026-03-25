@@ -20,7 +20,6 @@ html[dir="rtl"] .quick-navigation {
 }
 
 html[dir="rtl"] .hero-tag .tag-text,
-html[dir="rtl"] .hero-headline,
 html[dir="rtl"] .hero-text,
 html[dir="rtl"] .section-title h2,
 html[dir="rtl"] .section-title p,
@@ -43,6 +42,24 @@ html[dir="rtl"] .error-text,
 html[dir="rtl"] .error-path {
   letter-spacing: 0;
   line-height: 1.8;
+}
+
+html[dir="rtl"] .hero-process .hero-content .hero-headline,
+html[dir="rtl"] .hero-process .hero-content .hero-headline-primary {
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+html[dir="rtl"] .hero-process .hero-content .typing-line[data-step-number] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .hero .hero-content .typing-target.is-typing::after,
+html[dir="rtl"] .hero .hero-content .typing-line.is-typing::after,
+html[dir="rtl"] .hero .hero-content .typing-once-target.is-typing::after {
+  margin-right: 6px;
+  margin-left: 0;
 }
 
 /* Keep header layout visually consistent with English */
@@ -97,11 +114,25 @@ html[dir="rtl"] .btn-home i.bi-arrow-left {
 }
 
 @media (max-width: 991.98px) {
+  html[dir="rtl"] #hero .hero-content,
+  html[dir="rtl"] #hero .hero-content .hero-tag,
+  html[dir="rtl"] #hero .hero-content .hero-cta,
+  html[dir="rtl"] #hero .hero-content .hero-text {
+    text-align: center;
+  }
+
   html[dir="rtl"] .hero-content,
   html[dir="rtl"] .section-title,
   html[dir="rtl"] .contact .form-card,
   html[dir="rtl"] .legal-page-header,
   html[dir="rtl"] .error-content {
+    text-align: right;
+  }
+
+  html[dir="rtl"] #hero .hero-process .hero-content .typing-line[data-step-number] {
+    margin-inline: auto;
+    width: fit-content;
+    max-width: 100%;
     text-align: right;
   }
 }
