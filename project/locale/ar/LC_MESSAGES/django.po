@@ -68,7 +68,7 @@ msgstr "الخدمات"
 
 #: .\project\templates\404.html:77
 msgid "Explore what SurAxisTech builds"
-msgstr "اكتشف ما تبنيه SurAxisTech"
+msgstr "اكتشف ما نقدمه في SurAxisTech"
 
 #: .\project\templates\404.html:85
 msgid "About SurAxisTech"
@@ -244,7 +244,7 @@ msgstr "الرئيسية - SurAxisTech"
 
 #: .\project\templates\core\home.html:20
 msgid "How We Build Solutions at SurAxisTech?"
-msgstr "كيف نبني الحلول في SurAxisTech؟"
+msgstr "كيف نعمل في SurAxisTech؟"
 
 #: .\project\templates\core\home.html:20
 msgid "How We Build Solutions at SurAxisTech"
@@ -264,9 +264,8 @@ msgstr "نبني الحل المناسب"
 
 #: .\project\templates\core\home.html:35
 msgid ""
-"We understand your needs deeply, uncover the real root of the problem, and "
-"craft tailored digital solutions that fit your business with precision."
-msgstr "نفهم احتياجاتك بعمق، ونكشف الجذر الحقيقي للمشكلة، ونصمم حلولًا رقمية مخصصة تناسب عملك بدقة."
+"We help businesses and entrepreneurs build smart digital solutions that tackle technical challenges and drive sustainable growth."
+msgstr "نساعد أصحاب المشاريع و الشركات على بناء حلول رقمية تعالج التحديات التقنية التي تواجههم و تدعم نمو اعمالهم."
 
 #: .\project\templates\core\home.html:41 .\project\templates\core\home.html:42
 #: .\project\templates\core\home.html:202
@@ -289,7 +288,7 @@ msgid ""
 "solutions built specifically for your business. Our commitment goes beyond "
 "delivery - we provide continuous technical support to ensure stability, "
 "performance, and rapid issue resolution."
-msgstr "SurAxisTech هو استوديو خدمات برمجية يرفض الحلول الجاهزة للجميع. نحن نفهم احتياجاتك بعمق ونبني حلولًا رقمية مخصصة لعملك تحديدًا. التزامنا لا يتوقف عند التسليم، بل نقدم دعمًا تقنيًا مستمرًا لضمان الاستقرار والأداء وحل المشكلات بسرعة."
+msgstr "نساعد اصحاب المشاريع و الشركات على بناء حلول رقمية تعالج التحديات التقنية و تدعم نمو اعمالهم."
 
 #: .\project\templates\core\home.html:90
 msgid "Deep Problem Understanding"
