@@ -1,7 +1,7 @@
 ﻿{% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Home - SurAxisTech{% endblock %}
+{% block title %}{% trans "Home - SurAxisTech" %}{% endblock %}
 
 {% block body_class %}index-page{% endblock %}
 
@@ -17,31 +17,33 @@
       <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
         <div class="hero-content hero-content-custom">
           <div class="hero-tag hero-tag-custom" data-aos="fade-up" data-aos-delay="250">
-            <span class="tag-text typing-target" data-typing-sequence="1">How We Build Solutions at SurAxis?</span>
+            <span class="tag-text typing-target" data-typing-sequence="1">{% trans "How We Build Solutions at SurAxisTech?" %}</span>
           </div>
 
           <h2 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="300" data-typing-sequence="2" aria-live="polite">
-            We Discover the Problem
+            {% trans "We Discover the Problem" %}
           </h2>
           <h3 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="325" data-typing-sequence="3" aria-live="polite">
-            We Analyze Its Roots
+            {% trans "We Analyze Its Roots" %}
           </h3>
           <h3 class="hero-headline hero-headline-primary typing-line" data-aos="fade-up" data-aos-delay="350" data-typing-sequence="4" aria-live="polite">
-            We Build the Right Solution
+            {% trans "We Build the Right Solution" %}
           </h3>
          
 
           <p class="hero-text" data-aos="fade-up" data-aos-delay="375">
+            {% blocktrans trimmed %}
             We understand your needs deeply, uncover the real root of the problem, and craft tailored digital
             solutions that fit your business with precision.
+            {% endblocktrans %}
           </p>
           <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-            <a href="#contact" class="hero-start-mobile" aria-label="Start Your Project">
-              <span>Start Your Project</span>
+            <a href="#contact" class="hero-start-mobile" aria-label="{% trans 'Start Your Project' %}">
+              <span>{% trans "Start Your Project" %}</span>
               <i class="bi bi-arrow-right-circle-fill"></i>
             </a>
             <a href="#services" class="cta-button">
-              <span>Explore What We Do</span>
+              <span>{% trans "Explore What We Do" %}</span>
               <i class="bi bi-arrow-right"></i>
             </a>
           </div>
@@ -65,15 +67,15 @@
             <div class="hero-content hero-content-secondary-custom">
               <div class="hero-tag hero-tag-secondary-custom" data-aos="fade-up" data-aos-delay="250">
                 <span class="tag-dot"></span>
-                <span class="tag-text typing-once-target" data-typing-once-sequence="1">Why Choose SurAxis?</span>
+                <span class="tag-text typing-once-target" data-typing-once-sequence="1">{% trans "Why Choose SurAxisTech?" %}</span>
               </div>
 
               <p class="hero-text typing-once-target typing-once-paragraph" data-aos="fade-up" data-aos-delay="350" data-typing-once-sequence="2">
-SurAxis is a software services studio that rejects one-size-fits-all solutions.
+{% blocktrans trimmed %}SurAxisTech is a software services studio that rejects one-size-fits-all solutions.
 
 We deeply understand your needs and craft tailored digital solutions built specifically for your business.
 
-Our commitment goes beyond delivery - we provide continuous technical support to ensure stability, performance, and rapid issue resolution.
+Our commitment goes beyond delivery - we provide continuous technical support to ensure stability, performance, and rapid issue resolution.{% endblocktrans %}
 </p>
             </div>
           </div>
@@ -85,7 +87,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                   <i class="bi bi-binoculars"></i>
                 </div>
                 <div class="stat-info">
-                  <span class="stat-title">Deep Problem Understanding</span>
+                  <span class="stat-title">{% trans "Deep Problem Understanding" %}</span>
                 </div>
               </div>
 
@@ -94,7 +96,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                   <i class="bi bi-sliders"></i>
                 </div>
                 <div class="stat-info">
-                  <span class="stat-title">Custom-Built Solutions</span>
+                  <span class="stat-title">{% trans "Custom-Built Solutions" %}</span>
                 </div>
               </div>
 
@@ -104,7 +106,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
                 <div class="stat-info">
                   
-                  <span class="stat-title">Ongoing Support & Follow-Up</span>
+                  <span class="stat-title">{% trans "Ongoing Support & Follow-Up" %}</span>
                 </div>
               </div>
 
@@ -114,7 +116,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
                 <div class="stat-info">
         
-                  <span class="stat-title">24/7 Technical Support</span>
+                  <span class="stat-title">{% trans "24/7 Technical Support" %}</span>
                 </div>
               </div>
             </div>
@@ -131,8 +133,8 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
       <!-- Section Title -->
       <div class="container section-title section-title-services-custom" data-aos="fade-up">
-        <h2>Our Services</h2>
-        <p>We provide a range of digital solutions designed to help businesses build efficient systems, scale their operations, and adapt to evolving technical challenges.</p>
+        <h2>{% trans "Our Services" %}</h2>
+        <p>{% blocktrans %}We provide a range of digital solutions designed to help businesses build efficient systems, scale their operations, and adapt to evolving technical challenges.{% endblocktrans %}</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -153,16 +155,16 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                         <button
                           type="button"
                           class="service-flip-trigger"
-                          aria-label="Flip card to service summary"
-                          title="View service summary">
+                          aria-label="{% trans 'Flip card to service summary' %}"
+                          title="{% trans 'View service summary' %}">
                           <i class="bi bi-eye"></i>
                         </button>
                       </div>
                     </div>
                   </div>
                   <div class="service-info">
-                    <span class="service-badge">Service {{ forloop.counter }}</span>
-                    <h4>{{ service.title }}</h4>
+                    <span class="service-badge">{% trans "Service" %} {{ forloop.counter }}</span>
+                    <h4>{% trans service.title %}</h4>
                   </div>
                 </div>
 
@@ -170,24 +172,34 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                   <button
                     type="button"
                     class="service-flip-back"
-                    aria-label="Back to service front"
-                    title="Back">
+                    aria-label="{% trans 'Back to service front' %}"
+                    title="{% trans 'Back' %}">
                     <i class="bi bi-arrow-counterclockwise"></i>
                   </button>
 
                   <div class="service-back-content">
-                    <h4>{{ service.title }}</h4>
+                    <h4>{% trans service.title %}</h4>
                     <p class="service-back-description">
-                      <span class="service-back-label">Service Description:</span>
+                      <span class="service-back-label">{% trans "Service Description:" %}</span>
                       <span class="service-back-value">
-                        {{ service.short_description|default:"Tailored solution designed to fit your exact business requirements with high reliability and scalability." }}
+                        {% if service.short_description %}
+                          {% trans service.short_description %}
+                        {% else %}
+                          {% trans "Tailored solution designed to fit your exact business requirements with high reliability and scalability." %}
+                        {% endif %}
                       </span>
                     </p>
                     <p class="service-back-pricing">
-                      <span class="service-back-label">Estimated Price:</span>
-                      <span class="service-back-value">{{ service.pricing_text|default:"Custom Pricing" }}</span>
+                      <span class="service-back-label">{% trans "Estimated Price:" %}</span>
+                      <span class="service-back-value">
+                        {% if service.pricing_text %}
+                          {% trans service.pricing_text %}
+                        {% else %}
+                          {% trans "Custom Pricing" %}
+                        {% endif %}
+                      </span>
                     </p>
-                    <a href="#contact" class="service-back-cta">Start Your Project</a>
+                    <a href="#contact" class="service-back-cta">{% trans "Start Your Project" %}</a>
                   </div>
                 </div>
               </div>
@@ -195,7 +207,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
           </div>
           {% empty %}
           <div class="col-12" data-aos="fade-up" data-aos-delay="100">
-            <p class="text-center text-white-50 mb-0">Services will appear here soon.</p>
+            <p class="text-center text-white-50 mb-0">{% trans "Services will appear here soon." %}</p>
           </div>
           {% endfor %}
 
@@ -210,8 +222,8 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
       <!-- Section Title -->
       <div class="container section-title section-title-contact-custom" data-aos="fade-up">
-        <h2>Tell Us About Your Project</h2>
-        <p>Fill out the form below and our team will review your request and get back to you with the right solution for your needs.</p>
+        <h2>{% trans "Tell Us About Your Project" %}</h2>
+        <p>{% blocktrans %}Fill out the form below and our team will review your request and get back to you with the right solution for your needs.{% endblocktrans %}</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -223,8 +235,8 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                   <i class="bi bi-chat-dots-fill"></i>
                 </div>
                 <div class="header-text">
-                  <h4>Project Information</h4>
-                  <p>Complete the steps below so we can better understand your project.</p>
+                  <h4>{% trans "Project Information" %}</h4>
+                  <p>{% trans "Complete the steps below so we can better understand your project." %}</p>
                 </div>
               </div>
 
@@ -232,7 +244,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 {% csrf_token %}
                 <div class="project-form-progress" aria-live="polite">
                   <div class="project-form-progress__meta">
-                    <span class="project-form-progress__label">Step <span data-current-step>1</span> of 5</span>
+                    <span class="project-form-progress__label">{% trans "Step" %} <span data-current-step>1</span> {% trans "of" %} 5</span>
                     <span class="project-form-progress__percent" data-progress-percent>20%</span>
                   </div>
                   <div class="project-form-progress__track" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1">
@@ -241,14 +253,14 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="project-step is-active" data-step="1">
-                  <h5 class="project-step__title">Contact Information</h5>
+                  <h5 class="project-step__title">{% trans "Contact Information" %}</h5>
                   <div class="row g-4">
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="project_full_name">Full Name *</label>
+                        <label for="project_full_name">{% trans "Full Name" %} *</label>
                         <div class="input-wrapper">
                           <i class="bi bi-person"></i>
-                          <input id="project_full_name" type="text" name="full_name" placeholder="Enter your full name" minlength="3" maxlength="100" required>
+                          <input id="project_full_name" type="text" name="full_name" placeholder="{% trans 'Enter your full name' %}" minlength="3" maxlength="100" required>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -256,7 +268,7 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="project_email">Email Address *</label>
+                        <label for="project_email">{% trans "Email Address" %} *</label>
                         <div class="input-wrapper">
                           <i class="bi bi-envelope"></i>
                           <input id="project_email" type="email" name="email" placeholder="you@example.com" maxlength="120" required>
@@ -267,10 +279,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="project_phone">Phone / WhatsApp *</label>
+                        <label for="project_phone">{% trans "Phone / WhatsApp" %} *</label>
                         <div class="input-wrapper">
                           <i class="bi bi-whatsapp"></i>
-                          <input id="project_phone" type="tel" name="phone_whatsapp" placeholder="+9647XXXXXXXX or 07XXXXXXXXX" inputmode="tel" pattern="^(?:\+9647\d{9}|07\d{9})$" minlength="11" maxlength="14" required>
+                          <input id="project_phone" type="tel" name="phone_whatsapp" placeholder="{% trans '+9647XXXXXXXX or 07XXXXXXXXX' %}" inputmode="tel" pattern="^(?:\+9647\d{9}|07\d{9})$" minlength="11" maxlength="14" required>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -278,10 +290,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="project_company">Company / Project Name</label>
+                        <label for="project_company">{% trans "Company / Project Name" %}</label>
                         <div class="input-wrapper">
                           <i class="bi bi-building"></i>
-                          <input id="project_company" type="text" name="company_project_name" placeholder="Optional">
+                          <input id="project_company" type="text" name="company_project_name" placeholder="{% trans 'Optional' %}">
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -290,23 +302,23 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="project-step" data-step="2" hidden>
-                  <h5 class="project-step__title">Service &amp; Request Type</h5>
+                  <h5 class="project-step__title">{% trans "Service & Request Type" %}</h5>
                   <div class="row g-4">
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="service_needed">Service Needed *</label>
+                        <label for="service_needed">{% trans "Service Needed" %} *</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-layers"></i>
                           <select id="service_needed" name="service_needed" required>
-                            <option value="">Select a service</option>
-                            <option>Web Development</option>
-                            <option>Custom System Development</option>
-                            <option>Digital Process Automation</option>
-                            <option>AI Integration</option>
-                            <option>Odoo Customization &amp; Development</option>
-                            <option>Payment Gateway Integration</option>
-                            <option>Maintenance &amp; Security</option>
-                            <option>Other</option>
+                            <option value="">{% trans "Select a service" %}</option>
+                            <option value="Web Development">{% trans "Web Development" %}</option>
+                            <option value="Custom System Development">{% trans "Custom System Development" %}</option>
+                            <option value="Digital Process Automation">{% trans "Digital Process Automation" %}</option>
+                            <option value="AI Integration">{% trans "AI Integration" %}</option>
+                            <option value="Odoo Customization &amp; Development">{% trans "Odoo Customization & Development" %}</option>
+                            <option value="Payment Gateway Integration">{% trans "Payment Gateway Integration" %}</option>
+                            <option value="Maintenance &amp; Security">{% trans "Maintenance & Security" %}</option>
+                            <option value="Other">{% trans "Other" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -315,11 +327,11 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label>Project Type *</label>
-                        <div class="choice-group" role="radiogroup" aria-label="Project Type">
-                          <label class="choice-item"><input type="radio" name="project_type" value="New Project" required> <span>New Project</span></label>
-                          <label class="choice-item"><input type="radio" name="project_type" value="Existing Project" required> <span>Existing Project</span></label>
-                          <label class="choice-item"><input type="radio" name="project_type" value="Consultation Only" required> <span>Consultation Only</span></label>
+                        <label>{% trans "Project Type" %} *</label>
+                        <div class="choice-group" role="radiogroup" aria-label="{% trans 'Project Type' %}">
+                          <label class="choice-item"><input type="radio" name="project_type" value="New Project" required> <span>{% trans "New Project" %}</span></label>
+                          <label class="choice-item"><input type="radio" name="project_type" value="Existing Project" required> <span>{% trans "Existing Project" %}</span></label>
+                          <label class="choice-item"><input type="radio" name="project_type" value="Consultation Only" required> <span>{% trans "Consultation Only" %}</span></label>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -327,13 +339,13 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="existing_system">Do you already have an existing website or system?</label>
+                        <label for="existing_system">{% trans "Do you already have an existing website or system?" %}</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-diagram-3"></i>
                           <select id="existing_system" name="existing_system">
-                            <option value="">Select one</option>
-                            <option>Yes</option>
-                            <option>No</option>
+                            <option value="">{% trans "Select one" %}</option>
+                            <option value="Yes">{% trans "Yes" %}</option>
+                            <option value="No">{% trans "No" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -343,14 +355,14 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="project-step" data-step="3" hidden>
-                  <h5 class="project-step__title">Project Details</h5>
+                  <h5 class="project-step__title">{% trans "Project Details" %}</h5>
                   <div class="row g-4">
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="project_description">Describe Your Project *</label>
+                        <label for="project_description">{% trans "Describe Your Project" %} *</label>
                         <div class="input-wrapper textarea-wrapper">
                           <i class="bi bi-card-text"></i>
-                          <textarea id="project_description" name="project_description" rows="5" placeholder="Tell us what you want to build..." minlength="20" required></textarea>
+                          <textarea id="project_description" name="project_description" rows="5" placeholder="{% trans 'Tell us what you want to build...' %}" minlength="20" required></textarea>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -358,10 +370,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="problem_to_solve">What problem are you trying to solve?</label>
+                        <label for="problem_to_solve">{% trans "What problem are you trying to solve?" %}</label>
                         <div class="input-wrapper textarea-wrapper">
                           <i class="bi bi-exclamation-diamond"></i>
-                          <textarea id="problem_to_solve" name="problem_to_solve" rows="4" placeholder="Optional"></textarea>
+                          <textarea id="problem_to_solve" name="problem_to_solve" rows="4" placeholder="{% trans 'Optional' %}"></textarea>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -369,10 +381,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="main_goal">What is the main goal of this project?</label>
+                        <label for="main_goal">{% trans "What is the main goal of this project?" %}</label>
                         <div class="input-wrapper textarea-wrapper">
                           <i class="bi bi-bullseye"></i>
-                          <textarea id="main_goal" name="main_goal" rows="4" placeholder="Optional"></textarea>
+                          <textarea id="main_goal" name="main_goal" rows="4" placeholder="{% trans 'Optional' %}"></textarea>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -380,10 +392,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="reference_links">Reference Links / Examples</label>
+                        <label for="reference_links">{% trans "Reference Links / Examples" %}</label>
                         <div class="input-wrapper">
                           <i class="bi bi-link-45deg"></i>
-                          <input id="reference_links" type="text" name="reference_links" placeholder="Optional">
+                          <input id="reference_links" type="text" name="reference_links" placeholder="{% trans 'Optional' %}">
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -392,20 +404,20 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="project-step" data-step="4" hidden>
-                  <h5 class="project-step__title">Timeline &amp; Budget</h5>
+                  <h5 class="project-step__title">{% trans "Timeline & Budget" %}</h5>
                   <div class="row g-4">
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="budget_range">Expected Budget Range</label>
+                        <label for="budget_range">{% trans "Expected Budget Range" %}</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-cash-stack"></i>
                           <select id="budget_range" name="budget_range">
-                            <option value="">Select range</option>
-                            <option>Under $500</option>
-                            <option>$500 - $1,000</option>
-                            <option>$1,000 - $3,000</option>
-                            <option>$3,000+</option>
-                            <option>Not Sure Yet</option>
+                            <option value="">{% trans "Select range" %}</option>
+                            <option value="Under $500">{% trans "Under $500" %}</option>
+                            <option value="$500 - $1,000">{% trans "$500 - $1,000" %}</option>
+                            <option value="$1,000 - $3,000">{% trans "$1,000 - $3,000" %}</option>
+                            <option value="$3,000+">{% trans "$3,000+" %}</option>
+                            <option value="Not Sure Yet">{% trans "Not Sure Yet" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -414,15 +426,15 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-md-6">
                       <div class="input-group-custom">
-                        <label for="start_date">Expected Start Date</label>
+                        <label for="start_date">{% trans "Expected Start Date" %}</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-calendar-event"></i>
                           <select id="start_date" name="expected_start_date">
-                            <option value="">Select timeline</option>
-                            <option>As Soon As Possible</option>
-                            <option>Within 1 Week</option>
-                            <option>Within 1 Month</option>
-                            <option>Later / Still Planning</option>
+                            <option value="">{% trans "Select timeline" %}</option>
+                            <option value="As Soon As Possible">{% trans "As Soon As Possible" %}</option>
+                            <option value="Within 1 Week">{% trans "Within 1 Week" %}</option>
+                            <option value="Within 1 Month">{% trans "Within 1 Month" %}</option>
+                            <option value="Later / Still Planning">{% trans "Later / Still Planning" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -431,13 +443,13 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="urgent_project">Is this project urgent?</label>
+                        <label for="urgent_project">{% trans "Is this project urgent?" %}</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-alarm"></i>
                           <select id="urgent_project" name="is_urgent">
-                            <option value="">Select one</option>
-                            <option>Yes</option>
-                            <option>No</option>
+                            <option value="">{% trans "Select one" %}</option>
+                            <option value="Yes">{% trans "Yes" %}</option>
+                            <option value="No">{% trans "No" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -447,18 +459,18 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="project-step" data-step="5" hidden>
-                  <h5 class="project-step__title">Final Details</h5>
+                  <h5 class="project-step__title">{% trans "Final Details" %}</h5>
                   <div class="row g-4">
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="preferred_contact">Preferred Contact Method *</label>
+                        <label for="preferred_contact">{% trans "Preferred Contact Method" %} *</label>
                         <div class="input-wrapper select-wrapper">
                           <i class="bi bi-chat-square-dots"></i>
                           <select id="preferred_contact" name="preferred_contact_method" required>
-                            <option value="">Select method</option>
-                            <option>Email</option>
-                            <option>WhatsApp</option>
-                            <option>Phone Call</option>
+                            <option value="">{% trans "Select method" %}</option>
+                            <option value="Email">{% trans "Email" %}</option>
+                            <option value="WhatsApp">{% trans "WhatsApp" %}</option>
+                            <option value="Phone Call">{% trans "Phone Call" %}</option>
                           </select>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
@@ -467,10 +479,10 @@ Our commitment goes beyond delivery - we provide continuous technical support to
 
                     <div class="col-12">
                       <div class="input-group-custom">
-                        <label for="additional_notes">Additional Notes</label>
+                        <label for="additional_notes">{% trans "Additional Notes" %}</label>
                         <div class="input-wrapper textarea-wrapper">
                           <i class="bi bi-journal-text"></i>
-                          <textarea id="additional_notes" name="additional_notes" rows="4" placeholder="Optional"></textarea>
+                          <textarea id="additional_notes" name="additional_notes" rows="4" placeholder="{% trans 'Optional' %}"></textarea>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>
@@ -481,13 +493,13 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                         <label class="consent-check" for="project_legal_consent">
                           <input id="project_legal_consent" type="checkbox" name="project_consent" required>
                           <span>
-                            I have read and agree to the
-                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                            and
-                            <a href="{% url 'terms_of_service' %}" target="_blank" rel="noopener noreferrer">Terms of Service</a>.
+                            {% trans "I have read and agree to the" %}
+                            <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener noreferrer">{% trans "Privacy Policy" %}</a>
+                            {% trans "and" %}
+                            <a href="{% url 'terms_of_service' %}" target="_blank" rel="noopener noreferrer">{% trans "Terms of Service" %}</a>.
                           </span>
                         </label>
-                        <p class="consent-helper">Your information is used only to review and respond to your project inquiry.</p>
+                        <p class="consent-helper">{% trans "Your information is used only to review and respond to your project inquiry." %}</p>
                       </div>
                       <small class="field-error" aria-live="polite"></small>
                     </div>
@@ -502,22 +514,22 @@ Our commitment goes beyond delivery - we provide continuous technical support to
                 </div>
 
                 <div class="form-actions">
-                  <div class="loading">Loading</div>
+                  <div class="loading">{% trans "Loading" %}</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your project request has been sent. Thank you!</div>
+                  <div class="sent-message">{% trans "Your project request has been sent. Thank you!" %}</div>
 
                   <div class="project-step-actions">
-                    <button type="button" class="btn-nav btn-prev" data-project-prev hidden>Previous</button>
-                    <button type="button" class="btn-nav btn-next" data-project-next>Next</button>
+                    <button type="button" class="btn-nav btn-prev" data-project-prev hidden>{% trans "Previous" %}</button>
+                    <button type="button" class="btn-nav btn-next" data-project-next>{% trans "Next" %}</button>
                     <button type="submit" class="btn-submit" data-project-submit>
-                      <span>Submit Project Request</span>
+                      <span>{% trans "Submit Project Request" %}</span>
                       <i class="bi bi-arrow-right-circle-fill"></i>
                     </button>
                   </div>
 
                   <div class="secure-note">
                     <i class="bi bi-lock-fill"></i>
-                    <span>Your data is encrypted and secure</span>
+                    <span>{% trans "Your data is encrypted and secure" %}</span>
                   </div>
                 </div>
               </form>
@@ -530,4 +542,6 @@ Our commitment goes beyond delivery - we provide continuous technical support to
     </section><!-- /Contact Section -->
 
 {% endblock %}
+
+
 

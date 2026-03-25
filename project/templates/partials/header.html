@@ -1,16 +1,17 @@
-﻿{% load static %}
+{% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
 <header id="header" class="header d-flex align-items-center fixed-top">
   <div class="container position-relative d-flex align-items-center justify-content-between">
 
-    <a href="/" class="logo d-flex align-items-center me-auto me-xl-0" aria-label="SurAxisTech home">
+    <a href="/" class="logo d-flex align-items-center me-auto me-xl-0" aria-label="{% trans 'SurAxisTech home' %}">
       <span class="suraxis-logo" aria-hidden="true">
         <span class="logo-icon">
           <span class="planet"></span>
           <span class="orbit orbit-1"></span>
           <span class="orbit orbit-2"></span>
         </span>
-        <span class="logo-text">SurAxis</span>
+        <span class="logo-text">SurAxisTech</span>
       </span>
     </a>
 
@@ -22,7 +23,7 @@
         data-bs-target="#primary-nav"
         aria-controls="primary-nav"
         aria-expanded="false"
-        aria-label="Toggle navigation">
+        aria-label="{% trans 'Toggle navigation' %}">
         <span class="nav-toggle-grid__dots" aria-hidden="true">
           <span class="nav-toggle-grid__dot"></span>
           <span class="nav-toggle-grid__dot"></span>
@@ -38,30 +39,34 @@
 
       <div id="primary-nav" class="navmenu-collapse collapse">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#who">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#hero" class="active">{% trans "Home" %}</a></li>
+          <li><a href="#services">{% if CURRENT_LANGUAGE == 'ar' %}خدماتنا{% else %}{% trans "Services" %}{% endif %}</a></li>
+          <li><a href="#who">{% trans "About" %}</a></li>
+          <li><a href="#contact">{% if CURRENT_LANGUAGE == 'ar' %}تواصل معنا{% else %}{% trans "Contact" %}{% endif %}</a></li>
         </ul>
       </div>
     </nav>
 
-    <button
-      class="lang-toggle"
-      type="button"
-      data-lang-state="ar"
-      aria-pressed="false"
-      aria-label="Language switch (coming soon)"
-      title="Language switch (coming soon)">
-      <span class="lang-toggle__label lang-toggle__label--ar">AR</span>
-      <span class="lang-toggle__label lang-toggle__label--en">EN</span>
-      <span class="lang-toggle__thumb">
-        <span class="lang-toggle__flag lang-toggle__flag--iq" aria-hidden="true"></span>
-      </span>
-    </button>
+    <form action="{% url 'set_language' %}" method="post" class="lang-toggle-form" aria-label="{% trans 'Language switch' %}">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+      <input type="hidden" name="language" value="{% if CURRENT_LANGUAGE == 'ar' %}en{% else %}ar{% endif %}">
+      <button
+        class="lang-toggle {% if CURRENT_LANGUAGE == 'en' %}is-en{% endif %}"
+        type="submit"
+        data-lang-state="{% if CURRENT_LANGUAGE == 'en' %}en{% else %}ar{% endif %}"
+        aria-pressed="{% if CURRENT_LANGUAGE == 'en' %}true{% else %}false{% endif %}"
+        aria-label="{% trans 'Switch language' %}"
+        title="{% trans 'Switch language' %}">
+        <span class="lang-toggle__label lang-toggle__label--ar">AR</span>
+        <span class="lang-toggle__label lang-toggle__label--en">EN</span>
+        <span class="lang-toggle__thumb">
+          <span class="lang-toggle__flag {% if CURRENT_LANGUAGE == 'en' %}lang-toggle__flag--gb{% else %}lang-toggle__flag--iq{% endif %}" aria-hidden="true"></span>
+        </span>
+      </button>
+    </form>
 
-    <a class="btn-getstarted" href="#contact">Start Your Project</a>
+    <a class="btn-getstarted" href="#contact">{% trans "Start Your Project" %}</a>
 
   </div>
 </header>
-

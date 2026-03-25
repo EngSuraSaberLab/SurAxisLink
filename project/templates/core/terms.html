@@ -1,35 +1,36 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Terms of Service | SurAxisTech{% endblock %}
+{% block title %}{% trans "Terms of Service | SurAxisTech" %}{% endblock %}
 {% block body_class %}terms-page{% endblock %}
 
 {% block content %}
 <section class="terms-of-service section">
   <div class="container" data-aos="fade-up">
     <div class="terms-header legal-page-header">
-      <span class="header-badge legal-page-header__badge"><i class="bi bi-journal-check"></i> Legal</span>
-      <h2>Terms of Service</h2>
+      <span class="header-badge legal-page-header__badge"><i class="bi bi-journal-check"></i> {% trans "Legal" %}</span>
+      <h2>{% trans "Terms of Service" %}</h2>
       <p>
-        These Terms govern your use of SurAxisTech website and services. By submitting an inquiry or engaging our
-        team, you agree to the terms below.
+        {% blocktrans %}These Terms govern your use of SurAxisTech website and services. By submitting an inquiry or engaging our
+        team, you agree to the terms below.{% endblocktrans %}
       </p>
       <div class="update-info legal-page-header__date">
         <i class="bi bi-calendar-check"></i>
-        <span>Last updated: March 25, 2026</span>
+        <span>{% trans "Last updated: March 25, 2026" %}</span>
       </div>
     </div>
 
     <div class="quick-nav">
-      <span class="nav-label">Jump to:</span>
+      <span class="nav-label">{% trans "Jump to:" %}</span>
       <div class="nav-links">
-        <a href="#intro">Introduction</a>
-        <a href="#services">Services Description</a>
-        <a href="#responsibilities">User Responsibilities</a>
-        <a href="#payments">Payments & Pricing</a>
-        <a href="#liability">Limitation of Liability</a>
-        <a href="#ip">Intellectual Property</a>
-        <a href="#termination">Termination</a>
-        <a href="#contact">Contact</a>
+        <a href="#intro">{% trans "Introduction" %}</a>
+        <a href="#services">{% trans "Services Description" %}</a>
+        <a href="#responsibilities">{% trans "User Responsibilities" %}</a>
+        <a href="#payments">{% trans "Payments & Pricing" %}</a>
+        <a href="#liability">{% trans "Limitation of Liability" %}</a>
+        <a href="#ip">{% trans "Intellectual Property" %}</a>
+        <a href="#termination">{% trans "Termination" %}</a>
+        <a href="#contact">{% trans "Contact" %}</a>
       </div>
     </div>
 
@@ -37,11 +38,11 @@
       <article class="terms-article" id="intro">
         <span class="article-number">01</span>
         <div class="article-content">
-          <h3>Introduction</h3>
+          <h3>{% trans "Introduction" %}</h3>
           <p>
-            SurAxisTech is a software services studio providing digital solutions including web development, custom
+            {% blocktrans %}SurAxisTech is a software services studio providing digital solutions including web development, custom
             systems, process automation, and AI integrations. These Terms apply to all users of our website and project
-            inquiry channels.
+            inquiry channels.{% endblocktrans %}
           </p>
         </div>
       </article>
@@ -49,11 +50,11 @@
       <article class="terms-article" id="services">
         <span class="article-number">02</span>
         <div class="article-content">
-          <h3>Services Description</h3>
+          <h3>{% trans "Services Description" %}</h3>
           <p>
-            We provide professional software services tailored to each client scope and business context. Service
+            {% blocktrans %}We provide professional software services tailored to each client scope and business context. Service
             availability, timelines, and deliverables are confirmed in project-specific agreements after initial
-            discovery.
+            discovery.{% endblocktrans %}
           </p>
         </div>
       </article>
@@ -61,12 +62,12 @@
       <article class="terms-article" id="responsibilities">
         <span class="article-number">03</span>
         <div class="article-content">
-          <h3>User Responsibilities</h3>
-          <p>When using our website or requesting services, you agree to provide accurate and lawful information.</p>
+          <h3>{% trans "User Responsibilities" %}</h3>
+          <p>{% trans "When using our website or requesting services, you agree to provide accurate and lawful information." %}</p>
           <div class="checklist">
-            <div class="check-item"><i class="bi bi-check2-circle"></i><span>Submit complete and truthful project details</span></div>
-            <div class="check-item"><i class="bi bi-check2-circle"></i><span>Use communication channels respectfully and lawfully</span></div>
-            <div class="check-item"><i class="bi bi-check2-circle"></i><span>Avoid uploading harmful, illegal, or misleading content</span></div>
+            <div class="check-item"><i class="bi bi-check2-circle"></i><span>{% trans "Submit complete and truthful project details" %}</span></div>
+            <div class="check-item"><i class="bi bi-check2-circle"></i><span>{% trans "Use communication channels respectfully and lawfully" %}</span></div>
+            <div class="check-item"><i class="bi bi-check2-circle"></i><span>{% trans "Avoid uploading harmful, illegal, or misleading content" %}</span></div>
           </div>
         </div>
       </article>
@@ -74,16 +75,16 @@
       <article class="terms-article" id="payments">
         <span class="article-number">04</span>
         <div class="article-content">
-          <h3>Payments & Pricing</h3>
+          <h3>{% trans "Payments & Pricing" %}</h3>
           <p>
-            Pricing depends on scope, complexity, integrations, and delivery timeline. Unless otherwise stated in a
-            signed project agreement, website content does not represent a fixed offer or final price.
+            {% blocktrans %}Pricing depends on scope, complexity, integrations, and delivery timeline. Unless otherwise stated in a
+            signed project agreement, website content does not represent a fixed offer or final price.{% endblocktrans %}
           </p>
           <div class="highlight-card info">
             <div class="card-icon"><i class="bi bi-cash-stack"></i></div>
             <div class="card-text">
-              <h5>Custom Pricing Model</h5>
-              <p>Every project is scoped individually to ensure fair cost and realistic implementation planning.</p>
+              <h5>{% trans "Custom Pricing Model" %}</h5>
+              <p>{% trans "Every project is scoped individually to ensure fair cost and realistic implementation planning." %}</p>
             </div>
           </div>
         </div>
@@ -92,11 +93,11 @@
       <article class="terms-article" id="liability">
         <span class="article-number">05</span>
         <div class="article-content">
-          <h3>Limitation of Liability</h3>
+          <h3>{% trans "Limitation of Liability" %}</h3>
           <p>
-            SurAxisTech works with professional standards, but we are not liable for indirect or consequential losses,
+            {% blocktrans %}SurAxisTech works with professional standards, but we are not liable for indirect or consequential losses,
             including business interruption or lost opportunities, resulting from website use or delays beyond our
-            reasonable control.
+            reasonable control.{% endblocktrans %}
           </p>
         </div>
       </article>
@@ -104,10 +105,10 @@
       <article class="terms-article" id="ip">
         <span class="article-number">06</span>
         <div class="article-content">
-          <h3>Intellectual Property</h3>
+          <h3>{% trans "Intellectual Property" %}</h3>
           <p>
-            All website content, branding, and original materials are protected. Project ownership and transfer terms
-            are defined in client-specific contracts, including source code, designs, and licensed components.
+            {% blocktrans %}All website content, branding, and original materials are protected. Project ownership and transfer terms
+            are defined in client-specific contracts, including source code, designs, and licensed components.{% endblocktrans %}
           </p>
         </div>
       </article>
@@ -115,10 +116,10 @@
       <article class="terms-article" id="termination">
         <span class="article-number">07</span>
         <div class="article-content">
-          <h3>Termination</h3>
+          <h3>{% trans "Termination" %}</h3>
           <p>
-            We may suspend or refuse service if submitted information is abusive, fraudulent, or violates these Terms.
-            Either party may end collaboration according to the terms stated in the signed project agreement.
+            {% blocktrans %}We may suspend or refuse service if submitted information is abusive, fraudulent, or violates these Terms.
+            Either party may end collaboration according to the terms stated in the signed project agreement.{% endblocktrans %}
           </p>
         </div>
       </article>
@@ -126,8 +127,8 @@
       <article class="terms-article" id="contact">
         <span class="article-number">08</span>
         <div class="article-content">
-          <h3>Contact Information</h3>
-          <p>For legal or service-related questions, contact us through:</p>
+          <h3>{% trans "Contact Information" %}</h3>
+          <p>{% trans "For legal or service-related questions, contact us through:" %}</p>
           <div class="checklist">
             <div class="check-item"><i class="bi bi-envelope-fill"></i><span>support@suraxistech.com</span></div>
             <div class="check-item"><i class="bi bi-whatsapp"></i><span>+9647810784450</span></div>

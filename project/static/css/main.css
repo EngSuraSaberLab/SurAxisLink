@@ -587,6 +587,12 @@ body.preload-active .header .logo .logo-text {
   z-index: 1;
 }
 
+.header .lang-toggle-form {
+  margin: 0 12px 0 0;
+  display: inline-flex;
+  align-items: center;
+}
+
 .header .lang-toggle {
   --lang-thumb-size: 32px;
   --lang-thumb-offset: 4px;
@@ -597,7 +603,7 @@ body.preload-active .header .logo .logo-text {
   align-items: center;
   justify-content: center;
   padding: 0 12px;
-  margin: 0 12px 0 0;
+  margin: 0;
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
@@ -739,9 +745,13 @@ body.scrolled .header .btn-getstarted:focus {
   }
 
   .header .btn-getstarted {
-    order: 2;
+    order: 4;
     margin: 0 15px 0 0;
     padding: 6px 20px;
+  }
+
+  .header .lang-toggle-form {
+    order: 2;
   }
 
   .header .lang-toggle {
@@ -779,6 +789,23 @@ body.scrolled .header .btn-getstarted:focus {
   .header .container {
     flex-wrap: nowrap;
     gap: 8px;
+  }
+
+  .header .lang-toggle-form {
+    order: 2;
+    margin: 0 8px 0 0;
+  }
+
+  .header .logo {
+    order: 1;
+  }
+
+  .header .navmenu {
+    order: 3;
+  }
+
+  .header .btn-getstarted {
+    order: 4;
   }
 
   .header .logo {

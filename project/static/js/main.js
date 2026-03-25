@@ -1272,36 +1272,4 @@
 
   window.addEventListener('load', initWhyChooseTypingAnimation);
 
-  /**
-   * Header language toggle simulation (visual only)
-   */
-  function initLanguageToggleSimulation() {
-    const toggleButton = document.querySelector('.header .lang-toggle');
-    const flagElement = toggleButton ? toggleButton.querySelector('.lang-toggle__flag') : null;
-
-    if (!toggleButton) return;
-
-    function applyState(state) {
-      const isEnglish = state === 'en';
-      toggleButton.classList.toggle('is-en', isEnglish);
-      toggleButton.dataset.langState = isEnglish ? 'en' : 'ar';
-      toggleButton.setAttribute('aria-pressed', isEnglish ? 'true' : 'false');
-      toggleButton.setAttribute('title', isEnglish ? 'Language preview: English' : 'Language preview: Arabic');
-      toggleButton.setAttribute('aria-label', isEnglish ? 'Language preview set to English' : 'Language preview set to Arabic');
-      if (flagElement) {
-        flagElement.classList.toggle('lang-toggle__flag--gb', isEnglish);
-        flagElement.classList.toggle('lang-toggle__flag--iq', !isEnglish);
-      }
-    }
-
-    applyState(toggleButton.dataset.langState === 'en' ? 'en' : 'ar');
-
-    toggleButton.addEventListener('click', () => {
-      const nextState = toggleButton.dataset.langState === 'en' ? 'ar' : 'en';
-      applyState(nextState);
-    });
-  }
-
-  window.addEventListener('load', initLanguageToggleSimulation);
-
 })();

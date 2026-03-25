@@ -26,6 +26,7 @@ urlpatterns = [
     path('services/',include('services.urls')),
     path('portfolio/',include('portfolio.urls')),
     path('contact/',include('contact.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG:

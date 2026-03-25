@@ -1,0 +1,107 @@
+/* Arabic/RTL enhancements (scoped, non-destructive) */
+
+html[dir="rtl"] body {
+  font-family: "Cairo", "Lato", "Roboto", sans-serif;
+}
+
+html[dir="rtl"] .main,
+html[dir="rtl"] .footer,
+html[dir="rtl"] .section-title,
+html[dir="rtl"] .hero-content,
+html[dir="rtl"] .service-info,
+html[dir="rtl"] .service-back-content,
+html[dir="rtl"] .contact .form-card,
+html[dir="rtl"] .legal-page-header,
+html[dir="rtl"] .policy-section,
+html[dir="rtl"] .terms-article,
+html[dir="rtl"] .error-content,
+html[dir="rtl"] .quick-navigation {
+  text-align: right;
+}
+
+html[dir="rtl"] .hero-tag .tag-text,
+html[dir="rtl"] .hero-headline,
+html[dir="rtl"] .hero-text,
+html[dir="rtl"] .section-title h2,
+html[dir="rtl"] .section-title p,
+html[dir="rtl"] .service-info h4,
+html[dir="rtl"] .service-back-label,
+html[dir="rtl"] .service-back-value,
+html[dir="rtl"] .contact .form-card label,
+html[dir="rtl"] .contact .form-card p,
+html[dir="rtl"] .legal-page-header h1,
+html[dir="rtl"] .legal-page-header h2,
+html[dir="rtl"] .legal-page-header p,
+html[dir="rtl"] .policy-section h2,
+html[dir="rtl"] .policy-section p,
+html[dir="rtl"] .policy-section li,
+html[dir="rtl"] .terms-article h3,
+html[dir="rtl"] .terms-article p,
+html[dir="rtl"] .terms-article li,
+html[dir="rtl"] .error-heading,
+html[dir="rtl"] .error-text,
+html[dir="rtl"] .error-path {
+  letter-spacing: 0;
+  line-height: 1.8;
+}
+
+/* Keep header layout visually consistent with English */
+html[dir="rtl"] .header .container {
+  direction: ltr;
+}
+
+html[dir="rtl"] .header .navmenu a,
+html[dir="rtl"] .header .btn-getstarted {
+  direction: rtl;
+}
+
+/* Form controls */
+html[dir="rtl"] .contact .form-card .php-email-form .input-group-custom .input-wrapper i {
+  right: 16px;
+  left: auto;
+}
+
+html[dir="rtl"] .contact .form-card .php-email-form .input-group-custom .input-wrapper input,
+html[dir="rtl"] .contact .form-card .php-email-form .input-group-custom .input-wrapper select,
+html[dir="rtl"] .contact .form-card .php-email-form .input-group-custom .input-wrapper textarea {
+  text-align: right;
+  padding-right: 44px;
+  padding-left: 16px;
+}
+
+html[dir="rtl"] .contact .form-card .php-email-form .choice-group {
+  justify-content: flex-end;
+}
+
+html[dir="rtl"] .contact .form-card .php-email-form .form-actions .project-step-actions {
+  direction: rtl;
+}
+
+/* Footer */
+html[dir="rtl"] .footer .footer-info,
+html[dir="rtl"] .footer .footer-contact-list,
+html[dir="rtl"] .footer .copyright,
+html[dir="rtl"] .footer .legal-links {
+  text-align: right;
+}
+
+/* Directional icons only */
+html[dir="rtl"] .hero-start-mobile i.bi-arrow-right-circle-fill,
+html[dir="rtl"] .cta-button i.bi-arrow-right,
+html[dir="rtl"] .btn-submit i.bi-arrow-right-circle-fill {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .btn-home i.bi-arrow-left {
+  transform: scaleX(-1);
+}
+
+@media (max-width: 991.98px) {
+  html[dir="rtl"] .hero-content,
+  html[dir="rtl"] .section-title,
+  html[dir="rtl"] .contact .form-card,
+  html[dir="rtl"] .legal-page-header,
+  html[dir="rtl"] .error-content {
+    text-align: right;
+  }
+}

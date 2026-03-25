@@ -1,6 +1,8 @@
-{% load static %}
+﻿{% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_current_language_bidi as CURRENT_LANGUAGE_BIDI %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ CURRENT_LANGUAGE }}" dir="{% if CURRENT_LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 
 <head>
   <meta charset="utf-8">
@@ -17,6 +19,7 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -26,7 +29,10 @@
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="{% static 'css/main.css' %}?v=20260325i" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}?v=20260325j" rel="stylesheet">
+  {% if CURRENT_LANGUAGE_BIDI %}
+  <link href="{% static 'css/arabic.css' %}?v=20260325a" rel="stylesheet">
+  {% endif %}
 
   <!-- =======================================================
   * Template Name: Orbit
@@ -72,7 +78,7 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader" aria-live="polite" aria-label="Page loading">
+  <div id="preloader" aria-live="polite" aria-label="{% trans 'Page loading' %}">
     <div class="preloader__glow preloader__glow--one" aria-hidden="true"></div>
     <div class="preloader__glow preloader__glow--two" aria-hidden="true"></div>
     <div class="preloader__panel">
@@ -83,13 +89,13 @@
           <span class="preloader__orbit preloader__orbit--two"></span>
         </span>
         <span class="preloader__brand-copy">
-          <span class="preloader__brand-name">SurAxis</span>
-          <span class="preloader__brand-tag">Tailored digital solutions</span>
+          <span class="preloader__brand-name">SurAxisTech</span>
+          <span class="preloader__brand-tag">{% trans "Tailored digital solutions" %}</span>
         </span>
       </div>
 
       <div class="preloader__status">
-        <span class="preloader__label">Preparing your experience</span>
+        <span class="preloader__label">{% trans "Preparing your experience" %}</span>
         <span class="preloader__percent" data-preloader-percent>0%</span>
       </div>
 
@@ -97,7 +103,7 @@
         <span class="preloader__bar" data-preloader-bar></span>
       </div>
 
-      <p class="preloader__hint" data-preloader-hint>Loading services, visuals, and interface assets...</p>
+      <p class="preloader__hint" data-preloader-hint>{% trans "Loading services, visuals, and interface assets..." %}</p>
     </div>
   </div>
 
@@ -115,6 +121,7 @@
 </body>
 
 </html>
+
 
 
 
