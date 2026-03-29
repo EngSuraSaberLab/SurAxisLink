@@ -51,7 +51,15 @@
   ======================================================== -->
 </head>
 
-<body class="{% block body_class %}index-page{% endblock %}">
+<body
+  class="{% block body_class %}index-page{% endblock %}"
+  data-static-showcase-mode="{% if STATIC_SHOWCASE_MODE %}true{% else %}false{% endif %}"
+  data-static-showcase-base-path="{{ STATIC_SHOWCASE_BASE_PATH }}"
+  data-static-showcase-mostaql-url="{{ STATIC_SHOWCASE_MOSTAQL_URL }}"
+  data-static-showcase-message-en="This is a static showcase. Please contact me through my Mostaql account to start your project."
+  data-static-showcase-message-ar="هذا الموقع نسخة عرض ثابتة. يرجى التواصل معي عبر حسابي على مستقل لبدء مشروعك."
+  data-static-showcase-button-en="Open Mostaql"
+  data-static-showcase-button-ar="فتح مستقل">
 
   <div class="site-backdrop" aria-hidden="true">
     <div class="site-backdrop__gradient"></div>

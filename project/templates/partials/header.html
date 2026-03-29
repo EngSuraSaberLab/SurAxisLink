@@ -47,6 +47,25 @@
       </div>
     </nav>
 
+    {% if STATIC_SHOWCASE_MODE %}
+    <div class="lang-toggle-form" aria-label="{% trans 'Language switch' %}">
+      <button
+        class="lang-toggle {% if CURRENT_LANGUAGE == 'en' %}is-en{% endif %}"
+        type="button"
+        data-static-language-toggle="true"
+        data-language-target="{% if CURRENT_LANGUAGE == 'ar' %}en{% else %}ar{% endif %}"
+        data-lang-state="{% if CURRENT_LANGUAGE == 'en' %}en{% else %}ar{% endif %}"
+        aria-pressed="{% if CURRENT_LANGUAGE == 'en' %}true{% else %}false{% endif %}"
+        aria-label="{% trans 'Switch language' %}"
+        title="{% trans 'Switch language' %}">
+        <span class="lang-toggle__label lang-toggle__label--ar">AR</span>
+        <span class="lang-toggle__label lang-toggle__label--en">EN</span>
+        <span class="lang-toggle__thumb">
+          <span class="lang-toggle__flag {% if CURRENT_LANGUAGE == 'en' %}lang-toggle__flag--gb{% else %}lang-toggle__flag--iq{% endif %}" aria-hidden="true"></span>
+        </span>
+      </button>
+    </div>
+    {% else %}
     <form action="{% url 'set_language' %}" method="post" class="lang-toggle-form" aria-label="{% trans 'Language switch' %}">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.get_full_path }}">
@@ -65,6 +84,7 @@
         </span>
       </button>
     </form>
+    {% endif %}
 
     <a class="btn-getstarted" href="#contact">{% trans "Start Your Project" %}</a>
 

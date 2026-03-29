@@ -253,7 +253,20 @@ Our role does not end at project delivery; we stay with you and provide continuo
                 </div>
               </div>
 
-              <form action="{% url 'project_inquiry_submit' %}" method="post" class="php-email-form project-inquiry-form" novalidate>
+              {% if STATIC_SHOWCASE_MODE %}
+              <div class="showcase-contact-note" role="status">
+                <i class="bi bi-megaphone-fill"></i>
+                <span>
+                  {% if CURRENT_LANGUAGE == 'ar' %}
+                  هذا الموقع مخصص للعرض على GitHub Pages. لبدء مشروع حقيقي يرجى التواصل معي عبر حسابي على مستقل.
+                  {% else %}
+                  This website is a GitHub Pages showcase. For real project requests, please contact me through my Mostaql account.
+                  {% endif %}
+                </span>
+              </div>
+              {% endif %}
+
+              <form action="{% if STATIC_SHOWCASE_MODE %}#{% else %}{% url 'project_inquiry_submit' %}{% endif %}" method="post" class="php-email-form project-inquiry-form" novalidate>
                 {% csrf_token %}
                 <div class="project-form-progress" aria-live="polite">
                   <div class="project-form-progress__meta">
@@ -517,12 +530,14 @@ Our role does not end at project delivery; we stay with you and provide continuo
                       <small class="field-error" aria-live="polite"></small>
                     </div>
 
+                    {% if not STATIC_SHOWCASE_MODE %}
                     <div class="col-12">
                       <div class="project-recaptcha" data-recaptcha-required="true">
                         <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}"></div>
                         <small class="field-error" data-recaptcha-error aria-live="polite"></small>
                       </div>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
 
