@@ -33,7 +33,10 @@ ON_RENDER = bool(os.environ.get('RENDER')) or bool(os.environ.get('RENDER_EXTERN
 TRUST_X_FORWARDED_FOR = env_bool('DJANGO_TRUST_X_FORWARDED_FOR', ON_RENDER)
 STATIC_SHOWCASE_MODE = env_bool('DJANGO_STATIC_SHOWCASE_MODE', True)
 STATIC_SHOWCASE_BASE_PATH = os.environ.get('DJANGO_STATIC_SHOWCASE_BASE_PATH', '/')
-STATIC_SHOWCASE_MOSTAQL_URL = os.environ.get('DJANGO_STATIC_SHOWCASE_MOSTAQL_URL', '').strip()
+STATIC_SHOWCASE_MOSTAQL_URL = os.environ.get(
+    'DJANGO_STATIC_SHOWCASE_MOSTAQL_URL',
+    'https://mostaql.com/u/I_am_Sura',
+).strip()
 
 
 # Quick-start development settings - unsuitable for production
