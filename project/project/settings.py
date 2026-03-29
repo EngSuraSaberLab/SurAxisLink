@@ -17,16 +17,54 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+def env_bool(name: str, default: bool = False) -> bool:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+def env_list(name: str, default: str = '') -> list[str]:
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in raw.split(',') if item.strip()]
+
+
+ON_RENDER = bool(os.environ.get('RENDER')) or bool(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i_qhn@&!wel4cht^siq$m@74)jkrbo-&+$jh*93!j&dtdkq96t'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-only-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_bool('DJANGO_DEBUG', False if ON_RENDER else True)
 
-ALLOWED_HOSTS = ['*']
+DEFAULT_ALLOWED_HOSTS = [
+    'suraxistech.com',
+    'www.suraxistech.com',
+    'localhost',
+    '127.0.0.1',
+]
+ALLOWED_HOSTS = sorted(set(DEFAULT_ALLOWED_HOSTS + env_list('DJANGO_ALLOWED_HOSTS', '')))
+if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
+
+DEFAULT_CSRF_TRUSTED_ORIGINS = [
+    'https://suraxistech.com',
+    'https://www.suraxistech.com',
+]
+CSRF_TRUSTED_ORIGINS = sorted(set(DEFAULT_CSRF_TRUSTED_ORIGINS + env_list('DJANGO_CSRF_TRUSTED_ORIGINS', '')))
+
+# Frontend assets mode:
+# - dev: load source files (easier debugging)
+# - prod: load bundled/minified/obfuscated files from static/dist
+FRONTEND_ASSETS_MODE = os.environ.get(
+    'DJANGO_FRONTEND_ASSETS_MODE',
+    'dev' if DEBUG else 'prod',
+).strip().lower()
+USE_BUNDLED_FRONTEND_ASSETS = FRONTEND_ASSETS_MODE == 'prod'
 
 
 # Application definition
@@ -46,6 +84,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +106,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.frontend_assets_mode',
             ],
         },
     },
@@ -132,6 +172,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
 
 #MEDIA
 MEDIA_URL = '/media/'
@@ -140,3 +188,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # reCAPTCHA (use env vars in production and rotate leaked keys if exposed)
 RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI')
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe')
+
+# Production security hardening (enabled when DJANGO_DEBUG=False)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = env_bool('DJANGO_SECURE_SSL_REDIRECT', True)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_HSTS_SECONDS = int(os.environ.get('DJANGO_SECURE_HSTS_SECONDS', '31536000'))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = env_bool('DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS', True)
+    SECURE_HSTS_PRELOAD = env_bool('DJANGO_SECURE_HSTS_PRELOAD', True)

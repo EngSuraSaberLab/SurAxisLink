@@ -28,10 +28,18 @@
   <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-  <!-- Main CSS File -->
+  <!-- Custom Project CSS -->
+  {% if USE_BUNDLED_FRONTEND_ASSETS %}
+    {% if CURRENT_LANGUAGE_BIDI %}
+  <link href="{% static 'dist/app.rtl.min.css' %}?v=20260329build2" rel="stylesheet">
+    {% else %}
+  <link href="{% static 'dist/app.min.css' %}?v=20260329build2" rel="stylesheet">
+    {% endif %}
+  {% else %}
   <link href="{% static 'css/main.css' %}?v=20260329q" rel="stylesheet">
-  {% if CURRENT_LANGUAGE_BIDI %}
+    {% if CURRENT_LANGUAGE_BIDI %}
   <link href="{% static 'css/arabic.css' %}?v=20260329d" rel="stylesheet">
+    {% endif %}
   {% endif %}
 
   <!-- =======================================================
@@ -115,8 +123,12 @@
   <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
-  <!-- Main JS File -->
+  <!-- Custom Project JS -->
+  {% if USE_BUNDLED_FRONTEND_ASSETS %}
+  <script src="{% static 'dist/app.min.js' %}?v=20260329build2"></script>
+  {% else %}
   <script src="{% static 'js/main.js' %}?v=20260329a"></script>
+  {% endif %}
 
 </body>
 
