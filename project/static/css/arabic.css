@@ -126,6 +126,20 @@ html[dir="rtl"] .footer .footer-contact-value {
   display: inline-block;
 }
 
+html[dir="rtl"] .services .service-card .service-info {
+  text-align: center;
+}
+
+html[dir="rtl"] .services .service-card .service-info .service-badge {
+  direction: rtl;
+}
+
+html[dir="rtl"] .services .service-card .service-info h4 {
+  direction: rtl;
+  text-align: center;
+  line-height: 1.5;
+}
+
 /* Directional icons only */
 html[dir="rtl"] .hero-start-mobile i.bi-arrow-right-circle-fill,
 html[dir="rtl"] .cta-button i.bi-arrow-right,

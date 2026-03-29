@@ -145,10 +145,16 @@ Our role does not end at project delivery; we stay with you and provide continuo
             data-aos="fade-up"
             data-aos-delay="{% if forloop.counter == 1 %}100{% elif forloop.counter == 2 or forloop.counter == 3 %}200{% else %}400{% endif %}">
             <div class="service-card service-card-flip" data-service-card>
+              {% firstof service.title_ar service.title_en service.title as localized_title_ar %}
+              {% firstof service.short_description_ar service.short_description_en service.short_description as localized_desc_ar %}
+              {% firstof service.pricing_text_ar service.pricing_text_en service.pricing_text as localized_price_ar %}
+              {% firstof service.title_en service.title_ar service.title as localized_title_en %}
+              {% firstof service.short_description_en service.short_description_ar service.short_description as localized_desc_en %}
+              {% firstof service.pricing_text_en service.pricing_text_ar service.pricing_text as localized_price_en %}
               <div class="service-card-inner">
                 <div class="service-face service-face-front">
                   <div class="service-img">
-                    <img src="{{ service.image.url }}" class="img-fluid" alt="{{ service.title }}">
+                    <img src="{{ service.image.url }}" class="img-fluid" alt="{% if CURRENT_LANGUAGE == 'ar' %}{{ localized_title_ar }}{% else %}{{ localized_title_en }}{% endif %}">
                     <div class="social-overlay">
                       <div class="social-links">
                         <button
@@ -163,7 +169,7 @@ Our role does not end at project delivery; we stay with you and provide continuo
                   </div>
                   <div class="service-info">
                     <span class="service-badge">{% trans "Service" %} {{ forloop.counter }}</span>
-                    <h4>{% trans service.title %}</h4>
+                    <h4>{% if CURRENT_LANGUAGE == 'ar' %}{{ localized_title_ar }}{% else %}{{ localized_title_en }}{% endif %}</h4>
                   </div>
                 </div>
 
@@ -177,12 +183,14 @@ Our role does not end at project delivery; we stay with you and provide continuo
                   </button>
 
                   <div class="service-back-content">
-                    <h4>{% trans service.title %}</h4>
+                    <h4>{% if CURRENT_LANGUAGE == 'ar' %}{{ localized_title_ar }}{% else %}{{ localized_title_en }}{% endif %}</h4>
                     <p class="service-back-description">
                       <span class="service-back-label">{% trans "Service Description:" %}</span>
                       <span class="service-back-value">
-                        {% if service.short_description %}
-                          {% trans service.short_description %}
+                        {% if CURRENT_LANGUAGE == 'ar' %}
+                          {{ localized_desc_ar }}
+                        {% elif localized_desc_en %}
+                          {{ localized_desc_en }}
                         {% else %}
                           {% trans "Tailored solution designed to fit your exact business requirements with high reliability and scalability." %}
                         {% endif %}
@@ -191,8 +199,10 @@ Our role does not end at project delivery; we stay with you and provide continuo
                     <p class="service-back-pricing">
                       <span class="service-back-label">{% trans "Estimated Price:" %}</span>
                       <span class="service-back-value">
-                        {% if service.pricing_text %}
-                          {% trans service.pricing_text %}
+                        {% if CURRENT_LANGUAGE == 'ar' %}
+                          {{ localized_price_ar }}
+                        {% elif localized_price_en %}
+                          {{ localized_price_en }}
                         {% else %}
                           {% trans "Custom Pricing" %}
                         {% endif %}
