@@ -154,7 +154,11 @@ Our role does not end at project delivery; we stay with you and provide continuo
               <div class="service-card-inner">
                 <div class="service-face service-face-front">
                   <div class="service-img">
+                    {% if service.seeded_static_image_path %}
+                    <img src="{% static service.seeded_static_image_path %}" class="img-fluid" alt="{% if CURRENT_LANGUAGE == 'ar' %}{{ localized_title_ar }}{% else %}{{ localized_title_en }}{% endif %}">
+                    {% else %}
                     <img src="{{ service.image.url }}" class="img-fluid" alt="{% if CURRENT_LANGUAGE == 'ar' %}{{ localized_title_ar }}{% else %}{{ localized_title_en }}{% endif %}">
+                    {% endif %}
                     <div class="social-overlay">
                       <div class="social-links">
                         <button
@@ -320,13 +324,13 @@ Our role does not end at project delivery; we stay with you and provide continuo
                           <i class="bi bi-layers"></i>
                           <select id="service_needed" name="service_needed" required>
                             <option value="">{% trans "Select a service" %}</option>
-                            <option value="Web Development">{% trans "Web Development" %}</option>
+                            <option value="Web &amp; Digital Platform Development">{% trans "Web & Digital Platform Development" %}</option>
                             <option value="Custom System Development">{% trans "Custom System Development" %}</option>
                             <option value="Digital Process Automation">{% trans "Digital Process Automation" %}</option>
-                            <option value="AI Integration">{% trans "AI Integration" %}</option>
+                            <option value="AI Integration Solutions">{% trans "AI Integration Solutions" %}</option>
                             <option value="Odoo Customization &amp; Development">{% trans "Odoo Customization & Development" %}</option>
                             <option value="Payment Gateway Integration">{% trans "Payment Gateway Integration" %}</option>
-                            <option value="Maintenance &amp; Security">{% trans "Maintenance & Security" %}</option>
+                            <option value="System Maintenance &amp; Security">{% trans "System Maintenance & Security" %}</option>
                             <option value="Other">{% trans "Other" %}</option>
                           </select>
                         </div>

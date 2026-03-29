@@ -30,6 +30,7 @@ def env_list(name: str, default: str = '') -> list[str]:
 
 
 ON_RENDER = bool(os.environ.get('RENDER')) or bool(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
+TRUST_X_FORWARDED_FOR = env_bool('DJANGO_TRUST_X_FORWARDED_FOR', ON_RENDER)
 
 
 # Quick-start development settings - unsuitable for production

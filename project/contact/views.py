@@ -13,15 +13,18 @@ from .models import ProjectInquiry
 
 
 PHONE_REGEX = re.compile(r'^(?:\+9647\d{9}|07\d{9})$')
-ALLOWED_SERVICES = {
-    'Web Development',
+SERVICE_CHOICES = (
+    'Web & Digital Platform Development',
     'Custom System Development',
     'Digital Process Automation',
-    'AI Integration',
+    'AI Integration Solutions',
     'Odoo Customization & Development',
     'Payment Gateway Integration',
-    'Maintenance & Security',
+    'System Maintenance & Security',
     'Other',
+)
+ALLOWED_SERVICES = {
+    *SERVICE_CHOICES,
 }
 ALLOWED_PROJECT_TYPES = {'New Project', 'Existing Project', 'Consultation Only'}
 ALLOWED_EXISTING_SYSTEM = {'', 'Yes', 'No'}
@@ -36,7 +39,7 @@ RATE_LIMIT_WINDOW_SECONDS = 600
 
 def _client_ip(request):
     xff = request.META.get('HTTP_X_FORWARDED_FOR', '')
-    if xff:
+    if getattr(settings, 'TRUST_X_FORWARDED_FOR', False) and xff:
         return xff.split(',')[0].strip()
     return request.META.get('REMOTE_ADDR', 'unknown')
 

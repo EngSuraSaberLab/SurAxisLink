@@ -89,4 +89,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(seed_localized_service_fields, migrations.RunPython.noop),
     ]
-
