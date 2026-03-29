@@ -6,7 +6,6 @@ html[dir="rtl"] body {
 
 html[dir="rtl"] .main,
 html[dir="rtl"] .footer,
-html[dir="rtl"] .section-title,
 html[dir="rtl"] .hero-content,
 html[dir="rtl"] .service-info,
 html[dir="rtl"] .service-back-content,
@@ -42,6 +41,12 @@ html[dir="rtl"] .error-text,
 html[dir="rtl"] .error-path {
   letter-spacing: 0;
   line-height: 1.8;
+}
+
+html[dir="rtl"] .section-title,
+html[dir="rtl"] .section-title h2,
+html[dir="rtl"] .section-title p {
+  text-align: center;
 }
 
 html[dir="rtl"] .hero-process .hero-content .hero-headline,
@@ -86,6 +91,19 @@ html[dir="rtl"] .contact .form-card .php-email-form .input-group-custom .input-w
   padding-left: 16px;
 }
 
+/* Keep phone/WhatsApp number readable in RTL (e.g. +9647...) */
+html[dir="rtl"] .contact .form-card .php-email-form #project_phone {
+  direction: ltr !important;
+  unicode-bidi: plaintext;
+  text-align: left !important;
+}
+
+html[dir="rtl"] .contact .form-card .php-email-form #project_phone::placeholder {
+  direction: ltr;
+  unicode-bidi: plaintext;
+  text-align: left;
+}
+
 html[dir="rtl"] .contact .form-card .php-email-form .choice-group {
   justify-content: flex-end;
 }
@@ -100,6 +118,12 @@ html[dir="rtl"] .footer .footer-contact-list,
 html[dir="rtl"] .footer .copyright,
 html[dir="rtl"] .footer .legal-links {
   text-align: right;
+}
+
+html[dir="rtl"] .footer .footer-contact-value {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
 }
 
 /* Directional icons only */
@@ -122,7 +146,6 @@ html[dir="rtl"] .btn-home i.bi-arrow-left {
   }
 
   html[dir="rtl"] .hero-content,
-  html[dir="rtl"] .section-title,
   html[dir="rtl"] .contact .form-card,
   html[dir="rtl"] .legal-page-header,
   html[dir="rtl"] .error-content {

@@ -665,6 +665,34 @@
       return 'Please check this field.';
     }
 
+    function normalizePhoneValue(rawValue) {
+      if (typeof rawValue !== 'string') return '';
+
+      const arabicIndicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+      const easternArabicDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+      let normalized = rawValue;
+
+      arabicIndicDigits.forEach((digit, index) => {
+        normalized = normalized.replaceAll(digit, String(index));
+      });
+
+      easternArabicDigits.forEach((digit, index) => {
+        normalized = normalized.replaceAll(digit, String(index));
+      });
+
+      normalized = normalized.replace(/\s+/g, '');
+
+      const hasPlus = normalized.includes('+');
+      normalized = normalized.replace(/[^\d+]/g, '').replace(/\+/g, '');
+
+      if (hasPlus) {
+        normalized = `+${normalized}`;
+      }
+
+      return normalized;
+    }
+
     function clearFieldError(field) {
       const wrapper = field.closest('.input-wrapper');
       const group = field.closest('.input-group-custom');
@@ -737,7 +765,10 @@
         }
 
         if (field.name === 'phone_whatsapp') {
-          const normalizedValue = field.value.replace(/\s+/g, '');
+          const normalizedValue = normalizePhoneValue(field.value);
+          if (field.value !== normalizedValue) {
+            field.value = normalizedValue;
+          }
           if (!iraqiPhoneRegex.test(normalizedValue)) {
             valid = false;
             setFieldError(field, 'Please enter a valid phone or WhatsApp number (e.g. +9647XXXXXXXX)');
@@ -872,7 +903,11 @@
     inquiryForm.querySelectorAll('input, select, textarea').forEach((field) => {
       field.addEventListener('input', () => {
         if (field.name === 'phone_whatsapp') {
-          const phoneValue = field.value.replace(/\s+/g, '');
+          const normalizedPhone = normalizePhoneValue(field.value);
+          if (field.value !== normalizedPhone) {
+            field.value = normalizedPhone;
+          }
+          const phoneValue = normalizedPhone;
           const isValidPhone = iraqiPhoneRegex.test(phoneValue);
           if (phoneValue === '' || isValidPhone) {
             clearFieldError(field);
@@ -889,7 +924,11 @@
       });
       field.addEventListener('change', () => {
         if (field.name === 'phone_whatsapp') {
-          const phoneValue = field.value.replace(/\s+/g, '');
+          const normalizedPhone = normalizePhoneValue(field.value);
+          if (field.value !== normalizedPhone) {
+            field.value = normalizedPhone;
+          }
+          const phoneValue = normalizedPhone;
           const isValidPhone = iraqiPhoneRegex.test(phoneValue);
           if (phoneValue === '' || isValidPhone) {
             clearFieldError(field);

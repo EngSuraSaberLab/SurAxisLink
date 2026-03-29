@@ -5288,6 +5288,14 @@ section,
   color: color-mix(in srgb, var(--default-color) 40%, transparent);
 }
 
+/* Keep phone/WhatsApp input in LTR across all languages/browsers */
+.contact .form-card .php-email-form #project_phone,
+.contact .form-card .php-email-form #project_phone::placeholder {
+  direction: ltr !important;
+  unicode-bidi: bidi-override !important;
+  text-align: left !important;
+}
+
 .contact .form-card .php-email-form .input-group-custom .input-wrapper select {
   appearance: none;
   cursor: pointer;

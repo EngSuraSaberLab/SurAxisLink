@@ -281,7 +281,7 @@ Our role does not end at project delivery; we stay with you and provide continuo
                         <label for="project_phone">{% trans "Phone / WhatsApp" %} *</label>
                         <div class="input-wrapper">
                           <i class="bi bi-whatsapp"></i>
-                          <input id="project_phone" type="tel" name="phone_whatsapp" placeholder="{% trans '+9647XXXXXXXX or 07XXXXXXXXX' %}" inputmode="tel" pattern="^(?:\+9647\d{9}|07\d{9})$" minlength="11" maxlength="14" required>
+                          <input id="project_phone" type="tel" name="phone_whatsapp" placeholder="{% trans '+9647XXXXXXXX or 07XXXXXXXXX' %}" inputmode="tel" pattern="^(?:\+9647\d{9}|07\d{9})$" minlength="11" maxlength="14" dir="ltr" style="direction:ltr;text-align:left;unicode-bidi:bidi-override;" autocomplete="tel" required>
                         </div>
                         <small class="field-error" aria-live="polite"></small>
                       </div>

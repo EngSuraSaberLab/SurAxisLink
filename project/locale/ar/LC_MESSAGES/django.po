@@ -961,10 +961,11 @@ msgstr "للأسئلة القانونية أو المتعلقة بالخدمات
 
 #: .\project\templates\partials\footer.html:12
 msgid ""
-"SurAxisTech is a licensed software studio that specializes in crafting "
-"practical, tailored digital solutions to help businesses overcome complex "
-"technical challenges and grow with confidence."
-msgstr "SurAxisTech هو استوديو برمجي مرخّص ومتخصص في تصميم حلول رقمية عملية ومخصصة، لمساعدة الشركات على تجاوز التحديات التقنية المعقدة والنمو بثقة."
+"SurAxisTech is a software studio licensed by the Iraqi Companies "
+"Registration Department, specializing in practical and tailored digital "
+"solutions to help businesses overcome complex technical challenges and grow "
+"with confidence."
+msgstr "SurAxisTech هو ستوديو برمجي مرخص من دائرة تسجيل الشركات العراقية ومتخصص في تصميم حلول رقمية عملية ومخصصة، لمساعدة الشركات على تجاوز التحديات التقنية المعقدة والنمو بثقة."
 
 #: .\project\templates\partials\footer.html:24
 msgid "Email Support"
