@@ -79,8 +79,6 @@ USE_BUNDLED_FRONTEND_ASSETS = FRONTEND_ASSETS_MODE == 'prod'
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'services.apps.ServicesConfig',
-    'portfolio.apps.PortfolioConfig',
-    'contact.apps.ContactConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -10,7 +10,6 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 PROJECT_DIR = ROOT_DIR / "project"
 DOCS_DIR = ROOT_DIR / "docs"
 STATIC_SOURCE_DIR = PROJECT_DIR / "static"
-MEDIA_SOURCE_DIR = PROJECT_DIR / "media"
 
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
@@ -37,6 +36,38 @@ PAGES = (
     ("cookies/", "cookies/index.html", core_views.cookies_policy),
 )
 
+ASSET_FILES = (
+    "css/main.css",
+    "css/arabic.css",
+    "js/main.js",
+    "img/apple-touch-icon.png",
+    "img/favicon.png",
+    "img/logo.webp",
+    "img/flags/iraq.svg",
+    "img/flags/uk.svg",
+    "img/services/service1.webp",
+    "img/services/service2.webp",
+    "img/services/service3.webp",
+    "img/services/service4.webp",
+    "img/services/service5.webp",
+    "img/services/service6.webp",
+    "img/services/service7.webp",
+    "vendor/aos/aos.css",
+    "vendor/aos/aos.js",
+    "vendor/bootstrap-icons/bootstrap-icons.css",
+    "vendor/bootstrap-icons/fonts/bootstrap-icons.woff",
+    "vendor/bootstrap-icons/fonts/bootstrap-icons.woff2",
+    "vendor/bootstrap/css/bootstrap.min.css",
+    "vendor/bootstrap/js/bootstrap.bundle.min.js",
+    "vendor/glightbox/css/glightbox.min.css",
+    "vendor/glightbox/js/glightbox.min.js",
+    "vendor/imagesloaded/imagesloaded.pkgd.min.js",
+    "vendor/isotope-layout/isotope.pkgd.min.js",
+    "vendor/purecounter/purecounter_vanilla.js",
+    "vendor/swiper/swiper-bundle.min.css",
+    "vendor/swiper/swiper-bundle.min.js",
+)
+
 
 def build_request(path: str, language: str):
     normalized_path = f"/{path}"
@@ -53,8 +84,6 @@ def rewrite_html(html: str, language: str) -> str:
     replacements = {
         'href="/static/': f'href="{SITE_BASE_PATH}assets/',
         'src="/static/': f'src="{SITE_BASE_PATH}assets/',
-        'href="/media/': f'href="{SITE_BASE_PATH}media/',
-        'src="/media/': f'src="{SITE_BASE_PATH}media/',
         'href="/privacy/"': f'href="{language_base}privacy/"',
         'href="/terms/"': f'href="{language_base}terms/"',
         'href="/cookies/"': f'href="{language_base}cookies/"',
@@ -97,9 +126,11 @@ def export_pages() -> None:
 
 
 def copy_assets() -> None:
-    shutil.copytree(STATIC_SOURCE_DIR, DOCS_DIR / "assets", dirs_exist_ok=True)
-    if MEDIA_SOURCE_DIR.exists():
-        shutil.copytree(MEDIA_SOURCE_DIR, DOCS_DIR / "media", dirs_exist_ok=True)
+    for relative_path in ASSET_FILES:
+        source_path = STATIC_SOURCE_DIR / relative_path
+        target_path = DOCS_DIR / "assets" / relative_path
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, target_path)
 
 
 def main() -> None:
