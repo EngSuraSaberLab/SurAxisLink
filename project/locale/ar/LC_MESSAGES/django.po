@@ -283,12 +283,12 @@ msgstr "لماذا تختار SurAxisTech؟"
 
 #: .\project\templates\core\home.html:74
 msgid ""
-"SurAxisTech is a software services studio that rejects one-size-fits-all "
-"solutions. We deeply understand your needs and craft tailored digital "
-"solutions built specifically for your business. Our commitment goes beyond "
-"delivery - we provide continuous technical support to ensure stability, "
-"performance, and rapid issue resolution."
-msgstr "نساعد اصحاب المشاريع و الشركات على بناء حلول رقمية تعالج التحديات التقنية و تدعم نمو اعمالهم."
+"SurAxisTech is a software services studio that does not believe in one-size-"
+"fits-all solutions. We understand each client's needs and build the solution "
+"accordingly. Our role does not end at project delivery; we stay with you and "
+"provide continuous technical support to ensure system stability and fast "
+"resolution of any issue that may arise."
+msgstr "SurAxisTech هو ستوديو خدمات برمجية لا يؤمن بالحلول الجاهزة بل يفهم احتياج العميل و يبني الحل بناءاً عليه . و لا ينتهي دورنا عند تسليم المشروع بل نتابع معك و نقدم لك دعماً فنياً متواصلاً لضمان استقرار الانظمة و سرعة معالجة أي مشكلة قد تظهر."
 
 #: .\project\templates\core\home.html:90
 msgid "Deep Problem Understanding"
@@ -299,8 +299,8 @@ msgid "Custom-Built Solutions"
 msgstr "حلول مخصصة بالكامل"
 
 #: .\project\templates\core\home.html:109
-msgid "Ongoing Support & Follow-Up"
-msgstr "دعم ومتابعة مستمرة"
+msgid "Ongoing Follow-Up"
+msgstr "متابعة مستمرة"
 
 #: .\project\templates\core\home.html:119
 msgid "24/7 Technical Support"
@@ -312,10 +312,10 @@ msgstr "خدماتنا"
 
 #: .\project\templates\core\home.html:137
 msgid ""
-"We provide a range of digital solutions designed to help businesses build "
-"efficient systems, scale their operations, and adapt to evolving technical "
-"challenges."
-msgstr "نقدم مجموعة من الحلول الرقمية المصممة لمساعدة الشركات على بناء أنظمة فعالة، وتوسيع عملياتها، والتكيف مع التحديات التقنية المتغيرة."
+"We do not offer one-size-fits-all solutions. We build digital services "
+"tailored to each client to help them work smarter, stay organized, and "
+"accelerate operations."
+msgstr "لا نقدم حلولاً جاهزة للجميع بل نبني خدمات رقمية مخصصة لكل عميل بحيث نساعدهم على العمل بذكاء اكبر مع تنظيم و تسريع مختلف الاعمال."
 
 #: .\project\templates\core\home.html:158
 msgid "Flip card to service summary"
